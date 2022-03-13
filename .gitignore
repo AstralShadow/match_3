@@ -1,0 +1,33 @@
+# Vim metadata and backup files. 
+.backup/
+*.swp
+tags
+*~
+
+# Makefile compilation binary and object dirs.
+bin/
+obj/
+dep/
+tags
+
+# Precompiled headers
+.gch
+.pch
+
+# GNU compiler profiling
+gmon.out
+
+# Directories for personal stuff.
+private/
+archive/
+
+# CodeBlocks IDE stuff
+.bak
+*.save
+*.layout
+*.depend
+
+# Compilation binary and object dirs (CodeBlocks default)
+bin/
+obj/
+
