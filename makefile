@@ -1,4 +1,4 @@
-NAME=warfare
+NAME=match_3
 CXX=g++
 __CXXFLAGS=-Og -g -std=c++11 \
 	-Wall -Wpedantic -Wextra \

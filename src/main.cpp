@@ -1,9 +1,16 @@
 #include <iostream>
+#include "Engine.hpp"
 
 using namespace std;
 
 int main(int, char**)
 {
-    cout << "Hello Kitty!" << endl;
+    Engine engine;
+
+    cout << "Hello, Kitty!" << endl;
+
+    engine.run();
+
+    return 0;
 }
 
