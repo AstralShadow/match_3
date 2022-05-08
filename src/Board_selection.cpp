@@ -1,6 +1,5 @@
 #include "Board.hpp"
 #include <iterator>
-#include <iostream>
 
 
 void Board::select(tile_t* tile)
@@ -20,6 +19,8 @@ void Board::move(tile_t* target)
 {
     if(!_selected || !target)
         return;
+    if(STATE_NORMAL != *get_state(_selected))
+        return;
     
     int pos1 = std::distance(_tiles, _selected);
     int pos2 = std::distance(_tiles, target);
@@ -27,51 +28,46 @@ void Board::move(tile_t* target)
     int x2 = pos2 % _w, y2 = pos2 / _w;
     int dx = x2 - x1,   dy = y2 - y1;
 
+
+    const auto animated = ANIMATION_MASK;
+    const auto LEFT = STATE_SWAPPING_LEFT + animated;
+    const auto RIGHT = STATE_SWAPPING_RIGHT + animated;
+    const auto UP = STATE_SWAPPING_UP + animated;
+    const auto DOWN = STATE_SWAPPING_DOWN + animated;
+
     using std::abs;
     if(abs(dx) > abs(dy))
     {
         if(dx > 0 && x1 < _w - 1)
-            swap(_selected + 1);
+        {
+            if(STATE_NORMAL != *get_state(_selected + 1))
+                return;
+            *get_state(_selected) = RIGHT;
+            *get_state(_selected + 1) = LEFT;
+        }
         if(dx < 0 && x1 > 0)
-            swap(_selected - 1);
+        {
+            if(STATE_NORMAL != *get_state(_selected - 1))
+                return;
+            *get_state(_selected) = LEFT;
+            *get_state(_selected - 1) = RIGHT;
+        }
     }
     else if(abs(dx) < abs(dy))
     {
         if(dy > 0 && y1 < _h - 1)
-            swap(_selected + _w);
-        if(dy < 0 && y1 > 0)
-            swap(_selected - _w);
-    }
-}
-
-void Board::swap(tile_t* other)
-{
-    if(!other)
-        std::cout << "Swapping nullptr." << std::endl;
-
-    const auto state1 = *get_state(_selected);
-    const auto state2 = *get_state(other);
-    if(STATE_NORMAL == state1 && STATE_NORMAL == state2)
-    {
-        std::swap(*other, *_selected);
-        auto pos1 = std::distance(_tiles, _selected);
-        auto pos2 = std::distance(_tiles, other);
-        auto x1 = pos1 % _w;
-        auto y1 = pos1 / _w;
-        auto x2 = pos2 % _w;
-        auto y2 = pos2 / _w;
-
-        bool match = false;
-        for(int i = 2; i >= 0; i--)
         {
-            match = check((*this)(x1 - i, y1)) || match;
-            match = check((*this)(x1, y1 - i)) || match;
-            match = check((*this)(x2 - i, y2)) || match;
-            match = check((*this)(x2, y2 - i)) || match;
+            if(STATE_NORMAL != *get_state(_selected + _w))
+                return;
+            *get_state(_selected) = DOWN;
+            *get_state(_selected + _w) = UP;
         }
-        if(!match)
+        if(dy < 0 && y1 > 0)
         {
-            std::swap(*other, *_selected);
+            if(STATE_NORMAL != *get_state(_selected - _w))
+                return;
+            *get_state(_selected) = UP;
+            *get_state(_selected - _w) = DOWN;
         }
     }
 }

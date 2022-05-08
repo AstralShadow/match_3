@@ -8,6 +8,7 @@
 struct SDL_Renderer;
 typedef uint8_t tile_t;
 
+const uint16_t TARGET_BOARD_TICKRATE = 90;
 
 class Board
 {
@@ -31,7 +32,7 @@ public:
     void select(tile_t*);
     tile_t* get_selected() { return _selected; }
     void move(tile_t*);
-    void swap(tile_t*);
+    void swap(tile_t*, tile_t*, bool animated = false);
 
 
     void tick(uint8_t progress = 1);
@@ -46,11 +47,26 @@ public:
 
 
     enum : uint8_t {
-        ANIMATION_MASK = 15,
-        STATE_MASK = 240,
-        STATE_NORMAL = 0,
-        STATE_BREAKING = 16,
-        STATE_FALLING = 32,
+        ANIMATION_MASK          = 0x0f,
+        STATE_MASK              = 0xf0,
+        STATE_NORMAL            = 0 << 4,
+        STATE_BREAKING          = 1 << 4,
+        STATE_FALLING           = 2 << 4,
+
+        STATE_SWAPPING_LEFT     = 3 << 4,
+        STATE_RETURNING_RIGHT   = 4 << 4,
+        STATE_SWAPPING_UP       = 5 << 4,
+        STATE_RETURNING_DOWN    = 6 << 4,
+        STATE_SWAPPING_DOWN     = 7 << 4,
+        STATE_RETURNING_UP      = 8 << 4,
+        STATE_SWAPPING_RIGHT    = 9 << 4,
+        STATE_RETURNING_LEFT    = 10 << 4,
+
+        STATE_SWAPPING_TO_RETURNING = 1 << 4
+    };
+
+    enum : tile_t {
+        
     };
 
 private:

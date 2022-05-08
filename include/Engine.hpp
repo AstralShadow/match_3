@@ -12,6 +12,7 @@ typedef uint8_t tile_t;
 const char* const TITLE = "Match 3";
 const int WIDTH = 800;
 const int HEIGHT = 600;
+const uint16_t TARGET_FRAMERATE = 60;
 
 
 class Engine
@@ -36,7 +37,7 @@ private:
 
     void poll_events();
     void process(SDL_MouseButtonEvent&);
-    void tick(uint32_t ticks);
+    void tick(float ms);
     void render();
 
     tile_t* get_tile_at(int mouse_x, int mouse_y);

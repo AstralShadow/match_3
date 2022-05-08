@@ -30,7 +30,6 @@ void Board::render_tile(SDL_Renderer* _rnd,
                         SDL_Rect output)
 {
     auto color = get_color(tile);
-    SDL_Color empty {31, 31, 31, 255};
 
     auto* state_ptr = get_state(tile);
     auto state = *state_ptr & STATE_MASK;
@@ -38,13 +37,34 @@ void Board::render_tile(SDL_Renderer* _rnd,
 
     if(STATE_FALLING == state)
         output.y -= output.h * animation / 16;
+    
+    if(STATE_SWAPPING_LEFT == state)
+        output.x -= output.w * (15 - animation) / 16;
+    if(STATE_RETURNING_RIGHT == state)
+        output.x -= output.w * animation / 16;
+
+    if(STATE_SWAPPING_RIGHT == state)
+        output.x += output.w * (15 - animation) / 16;
+    if(STATE_RETURNING_LEFT == state)
+        output.x += output.w * animation / 16;
+
+    if(STATE_SWAPPING_UP == state)
+        output.y -= output.h * (15 - animation) / 16;
+    if(STATE_RETURNING_DOWN  == state)
+        output.y -= output.h * animation / 16;
+
+    if(STATE_SWAPPING_DOWN == state)
+        output.y += output.h * (15 - animation) / 16;
+    if(STATE_RETURNING_UP  == state)
+        output.y += output.h * animation / 16;
 
     if(STATE_BREAKING == state)
     {
+        int gray = 31;
         float rate = animation / 16.0f;
-        color.r = color.r * rate + empty.r * (1.0f - rate);
-        color.g = color.g * rate + empty.g * (1.0f - rate);
-        color.b = color.b * rate + empty.b * (1.0f - rate);
+        color.r = color.r * rate + gray * (1.0f - rate);
+        color.g = color.g * rate + gray * (1.0f - rate);
+        color.b = color.b * rate + gray * (1.0f - rate);
     }
 
 

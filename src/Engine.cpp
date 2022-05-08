@@ -1,6 +1,7 @@
 #include "Engine.hpp"
 #include <SDL2/SDL.h>
 #include <stdexcept>
+#include <iostream>
 
 Engine::Engine()
 {
@@ -49,17 +50,24 @@ void Engine::run()
 {
     _running = true;
 
-    int start = SDL_GetTicks();
+    float next = SDL_GetTicks();
+    float step = 1000.0f / TARGET_FRAMERATE;
     while(_running)
     {
-        SDL_Delay(10);
-        
-        int end = SDL_GetTicks();
+        while(next > SDL_GetTicks());
+        next += step;
+        int skipped_frames = 0;
+        while(next < SDL_GetTicks())
+        {
+            next += step;
+            skipped_frames++;
+        }
+        if(skipped_frames > 0)
+            std::cout << "Skipping " << skipped_frames
+                << " frames." << std::endl;
 
         poll_events();
-        tick(end - start);
+        tick((1 + skipped_frames) * step);
         render();
-
-        start = end;
     }
 }

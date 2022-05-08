@@ -9,7 +9,7 @@ void Engine::init_game_data()
     _data = new GameData({8, 8});
 }
 
-void Engine::tick(uint32_t)
+void Engine::tick(float ms)
 {
     typedef std::chrono::steady_clock clock;
     typedef std::chrono::time_point<clock> time_p;
@@ -22,6 +22,16 @@ void Engine::tick(uint32_t)
 
     //std::cout << "FPS: " << frames.size() << std::endl;
 
-    _data->board.tick(1);
+
+    static float progress = 0;
+    progress += ms;
+    constexpr float board_step =
+        1000.0f / TARGET_BOARD_TICKRATE;
+
+    while(progress > board_step)
+    {
+        progress -= board_step;
+        _data->board.tick(1);
+    }
 }
 
