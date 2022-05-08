@@ -30,7 +30,7 @@ void Engine::process(SDL_MouseButtonEvent& ev)
 
     auto const& btn = ev.button;
     auto const& LEFT = SDL_BUTTON_LEFT;
-    auto const& RIGHT = SDL_BUTTON_RIGHT;
+    //auto const& RIGHT = SDL_BUTTON_RIGHT;
 
 
     if(btn == LEFT && type == DOWN)

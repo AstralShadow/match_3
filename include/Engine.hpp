@@ -39,7 +39,7 @@ private:
     void tick(uint32_t ticks);
     void render();
 
-    tile_t* get_tile_at(int x, int y);
+    tile_t* get_tile_at(int mouse_x, int mouse_y);
 };
 
 #endif // INCLUDE_ENGINE_HPP

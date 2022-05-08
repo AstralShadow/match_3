@@ -1,34 +1,27 @@
 #include "Engine.hpp"
 #include "GameData.hpp"
-#include <random>
 #include <iostream>
-
-using std::uniform_int_distribution;
-static std::random_device rd;
-static std::mt19937 generator(rd());
-
+#include <chrono>
+#include <queue>
 
 void Engine::init_game_data()
 {
-    _data = new GameData({10, 10});
-
-    uniform_int_distribution<int> dist(0, 7);
-    auto& board = _data->board;
-
-    for(int y = 0; y < board.h(); y++)
-    {
-        for(int x = 0; x < board.w(); x++)
-        {
-            auto* tile = board(x, y);
-            *tile = dist(generator);
-            std::cout << (int) *tile << ' ';
-        }
-        std::cout << std::endl;
-    }
+    _data = new GameData({8, 8});
 }
 
-void Engine::tick(uint32_t ticks)
+void Engine::tick(uint32_t)
 {
-    
+    typedef std::chrono::steady_clock clock;
+    typedef std::chrono::time_point<clock> time_p;
+    using std::chrono::seconds;
+    static std::queue<time_p> frames;
+
+    frames.push(clock::now());
+    while(frames.front() < frames.back() - seconds(1))
+        frames.pop();
+
+    //std::cout << "FPS: " << frames.size() << std::endl;
+
+    _data->board.tick(1);
 }
 
