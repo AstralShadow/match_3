@@ -10,6 +10,7 @@
 using std::uniform_int_distribution;
 static std::random_device rd;
 static std::mt19937 generator(rd());
+static uniform_int_distribution<int> dist(1, 6);
 
 
 Board::Board(uint8_t w, uint8_t h) :
@@ -123,65 +124,88 @@ void Board::swap(tile_t* other)
     const auto state1 = *get_state(_selected);
     const auto state2 = *get_state(other);
     if(STATE_NORMAL == state1 && STATE_NORMAL == state2)
+    {
         std::swap(*other, *_selected);
+        auto pos1 = std::distance(_tiles, _selected);
+        auto pos2 = std::distance(_tiles, other);
+        auto x1 = pos1 % _w;
+        auto y1 = pos1 / _w;
+        auto x2 = pos2 % _w;
+        auto y2 = pos2 / _w;
+
+        bool match = false;
+        for(int i = 2; i >= 0; i--)
+        {
+            match = check((*this)(x1 - i, y1)) || match;
+            match = check((*this)(x1, y1 - i)) || match;
+            match = check((*this)(x2 - i, y2)) || match;
+            match = check((*this)(x2, y2 - i)) || match;
+        }
+    }
 }
 
-void Board::check_groups()
+bool Board::check(tile_t* tile)
 {
-    auto falling = STATE_BREAKING + ANIMATION_MASK;
+    if(tile == nullptr) return false;
+    auto breaking = STATE_BREAKING + ANIMATION_MASK;
 
-    for(int y = 0; y < _h; y++)
-    for(int x = 0; x < _w; x++)
+    auto state = get_state(tile);
+    if(STATE_NORMAL != *state)
+        return false;
+
+    int pos = std::distance(_tiles, tile);
+    int x = pos % _w;
+    int y = pos / _w;
+
+    if(x < _w - 2)
     {
-        auto* tile = (*this)(x, y);
-        auto* state = get_state(tile);
-        if(STATE_NORMAL != *state) continue;
-
-        horizontal_check:
-        if(x < _w - 2)
+        int same = 0;
+        auto* other = tile;
+        tile_t* row_end = _tiles + (y + 1) * _w;
+        while(other < row_end)
         {
-            int same = 1;
-            auto* other = tile + 1;
-            auto row_end = _tiles + (y + 1) * _w;
-            while(other < row_end)
-            {
-                if(*other != *tile)
-                    break;
-                if(STATE_NORMAL != *get_state(other))
-                    break;
-                same++;
-                other++;
-            }
-
-            if(same < 3) goto horizontal_check_end;
-
-            for(int i = 0; i < same; i++)
-                *get_state(tile + i) = falling;
+            if(*other != *tile)
+                break;
+            if(STATE_NORMAL != *get_state(other))
+                break;
+            same++;
+            other++;
         }
-        horizontal_check_end:
 
-        vertical_check:
-        if(y < _h - 2)
-        {
-            int same = 1;
-            auto other = tile + _w;
-            auto col_end = _tiles + _h * _w + x;
-            while(other < col_end)
-            {
-                if(*other != *tile)
-                    break;
-                if(STATE_NORMAL != *get_state(other))
-                    break;
-                same++;
-                other += _w;
-            }
-
-            if(same < 3) goto vertical_check_end;
+        if(same > 2) 
             for(int i = 0; i < same; i++)
-                *get_state(tile + i * _w) = falling;
-        }
-        vertical_check_end:;
+                *get_state(tile + i) = breaking;
     }
+
+    if(y < _h - 2)
+    {
+        int same = 1;
+        auto other = tile + _w;
+        tile_t* col_end = _tiles + _h * _w + x;
+        while(other < col_end)
+        {
+            if(*other != *tile)
+                break;
+            if(STATE_NORMAL != *get_state(other))
+                break;
+            same++;
+            other += _w;
+        }
+
+        if(same > 2)
+            for(int i = 0; i < same; i++)
+                *get_state(tile + i * _w) = breaking;
+    }
+
+    return STATE_NORMAL != *state;
+}
+
+bool Board::check_all()
+{
+    bool result = false;
+    for(size_t i = 0; i < size(); i++)
+        result = check(_tiles + i) || result;
+    return result;
 }
 
 uint8_t* Board::get_state(tile_t* tile)
@@ -201,6 +225,8 @@ uint8_t* Board::get_state(tile_t* tile)
 
 void Board::tick(uint8_t progress)
 {
+    bool new_tiles = false;
+
     auto tile = _tiles;
     auto end = _tiles + _w * _h;
     while(tile != end)
@@ -218,18 +244,20 @@ void Board::tick(uint8_t progress)
             fill(tile);
 
         if(STATE_FALLING == *state)
+        {
             *state = STATE_NORMAL;
-
+            new_tiles = true;
+        }
 
         tile++;
     }
-    
-    check_groups();
+
+    if(new_tiles)
+        check_all();
 }
 
 void Board::fill(tile_t* tile)
 {
-    static uniform_int_distribution<int> dist(1, 7);
     auto* state = get_state(tile);
     int pos = std::distance(_tiles, tile);
     int y = pos / _w;

@@ -23,17 +23,22 @@ public:
     uint8_t h() const { return _h; }
     size_t size() const { return _w * _h; }
 
+
+    uint8_t* get_state(tile_t*);
+    tile_t* operator ()(uint8_t x, uint8_t y);
+
+
     void select(tile_t*);
     tile_t* get_selected() { return _selected; }
     void move(tile_t*);
     void swap(tile_t*);
 
-    void check_groups();
-    uint8_t* get_state(tile_t*);
-
-    tile_t* operator ()(uint8_t x, uint8_t y);
 
     void tick(uint8_t progress = 1);
+    /** Returns if a match was detected. */
+    bool check_all();
+    bool check(tile_t*);
+
     void render(SDL_Renderer*, SDL_Rect);
     void render_tile(SDL_Renderer*, tile_t*, SDL_Rect);
 
