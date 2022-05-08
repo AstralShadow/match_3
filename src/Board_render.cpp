@@ -124,17 +124,24 @@ void Board::render_tile(SDL_Renderer* _rnd,
 SDL_Color Board::get_color(tile_t* tile) const
 {
     if(tile)
-        switch(*tile & TILE_TYPE_MASK)
-        {
-            case 0: return {   0,   0,   0, 255};
-            case 1: return { 255,   0,   0, 255};
-            case 2: return {   0, 255,   0, 255};
-            case 3: return {   0,   0, 255, 255};
-            case 4: return { 255, 255,   0, 255};
-            case 5: return {   0, 255, 255, 255};
-            case 6: return { 255,   0, 255, 255};
-            case 7: return { 255, 255, 255, 255};
-        }
+        return get_color(*tile & TILE_TYPE_MASK);
+
+    return {127, 127, 127, 255};
+}
+
+SDL_Color Board::get_color(uint8_t type) const
+{
+    switch(type & TILE_TYPE_MASK)
+    {
+        case 0: return {   0,   0,   0, 255};
+        case 1: return { 255,   0,   0, 255};
+        case 2: return {   0, 255,   0, 255};
+        case 3: return {   0,   0, 255, 255};
+        case 4: return { 255, 255,   0, 255};
+        case 5: return {   0, 255, 255, 255};
+        case 6: return { 255,   0, 255, 255};
+        case 7: return { 255, 255, 255, 255};
+    }
 
     return {127, 127, 127, 255};
 }

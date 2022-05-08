@@ -4,6 +4,8 @@
 #include <chrono>
 #include <queue>
 
+#define TRACK_FRAMERATE false
+
 void Engine::init_game_data()
 {
     _data = new GameData({8, 8});
@@ -11,17 +13,29 @@ void Engine::init_game_data()
 
 void Engine::tick(float ms)
 {
+#if TRACK_FRAMERATE
     typedef std::chrono::steady_clock clock;
     typedef std::chrono::time_point<clock> time_p;
     using std::chrono::seconds;
-    static std::queue<time_p> frames;
+    using std::chrono::duration_cast;
 
+    static std::queue<time_p> frames;
+    static auto begin = clock::now();
+
+
+    auto last_frame = frames.front();
     frames.push(clock::now());
+
     while(frames.front() < frames.back() - seconds(1))
         frames.pop();
 
-    //std::cout << "FPS: " << frames.size() << std::endl;
-
+    if(duration_cast<seconds>(begin - last_frame)
+        != duration_cast<seconds>(begin - frames.front()))
+    {
+        std::cout << "FPS: "
+            << frames.size() << std::endl;
+    }
+#endif
 
     static float progress = 0;
     progress += ms;

@@ -21,8 +21,14 @@ void Board::tick(uint8_t progress)
         if(STATE_BREAKING == *state)
             fill(tile);
 
-        if(STATE_FALLING == *state
-            || STATE_RETURNING_UP == *state
+        if(STATE_FALLING == *state)
+        {
+            *state = STATE_NORMAL;
+            if(std::distance(_tiles, tile) / _w == 0)
+                new_tiles = true;
+        }
+
+        if(STATE_RETURNING_UP == *state
             || STATE_RETURNING_DOWN == *state
             || STATE_RETURNING_LEFT == *state
             || STATE_RETURNING_RIGHT == *state)

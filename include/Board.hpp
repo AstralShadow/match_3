@@ -44,6 +44,7 @@ public:
     void render_tile(SDL_Renderer*, tile_t*, SDL_Rect);
 
     SDL_Color get_color(tile_t*) const;
+    SDL_Color get_color(uint8_t type) const;
 
 
     /** State data
@@ -88,6 +89,8 @@ public:
 
     void assign_score(tile_t*, int combo);    
     double _color_score[TILE_TYPE_MASK] {0};
+    uint8_t _last_type = 0;
+    uint32_t _total_color_combo = 0;
 
 private:
     uint8_t _w, _h;
