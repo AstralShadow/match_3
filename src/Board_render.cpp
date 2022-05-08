@@ -23,6 +23,22 @@ void Board::render(SDL_Renderer* _rnd, SDL_Rect area)
 
             SDL_RenderFillRect(_rnd, &output);
 
+            if(_selected == tile)
+            {
+                color.r = 255 - color.r;
+                color.g = 255 - color.g;
+                color.b = 255 - color.b;
+
+                SDL_SetRenderDrawColor(_rnd,
+                    color.r, color.g, color.b, color.a);
+
+                output.x++; output.y++;
+                output.w -= 2; output.h -= 2;
+                SDL_RenderDrawRect(_rnd, &output);
+                output.x--; output.y--;
+                output.w += 2; output.h += 2;
+            }
+
             output.y += output.h;
         }
 

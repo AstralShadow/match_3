@@ -21,3 +21,13 @@ void Engine::render()
     SDL_RenderPresent(_rnd);
 }
 
+tile_t* Engine::get_tile_at(int x, int y)
+{
+    int tile_w = HEIGHT / _data->board.w();
+    int tile_h = HEIGHT / _data->board.h();
+
+    x -= (WIDTH - HEIGHT) / 2;
+    int tx = x / tile_w;
+    int ty = y / tile_h;
+    return _data->board(tx, ty);
+}
