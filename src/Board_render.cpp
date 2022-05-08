@@ -29,11 +29,14 @@ void Board::render_tile(SDL_Renderer* _rnd,
                         tile_t* tile,
                         SDL_Rect output)
 {
-    auto color = get_color(tile);
+    SDL_Color color = get_color(tile);
+    SDL_Color bonus_color{0, 0, 0, 255};
+
 
     auto* state_ptr = get_state(tile);
     auto state = *state_ptr & STATE_MASK;
     auto animation = *state_ptr & ANIMATION_MASK;
+
 
     if(STATE_FALLING == state)
         output.y -= output.h * animation / 16;
@@ -58,6 +61,7 @@ void Board::render_tile(SDL_Renderer* _rnd,
     if(STATE_RETURNING_UP  == state)
         output.y += output.h * animation / 16;
 
+
     if(STATE_BREAKING == state)
     {
         int gray = 31;
@@ -65,6 +69,12 @@ void Board::render_tile(SDL_Renderer* _rnd,
         color.r = color.r * rate + gray * (1.0f - rate);
         color.g = color.g * rate + gray * (1.0f - rate);
         color.b = color.b * rate + gray * (1.0f - rate);
+        bonus_color.r = bonus_color.r * rate
+            + gray * (1.0f - rate);
+        bonus_color.g = bonus_color.g * rate
+            + gray * (1.0f - rate);
+        bonus_color.b = bonus_color.b * rate
+            + gray * (1.0f - rate);
     }
 
 
@@ -74,23 +84,47 @@ void Board::render_tile(SDL_Renderer* _rnd,
 
     if(_selected == tile)
     {
-        color.r = 255 - color.r;
-        color.g = 255 - color.g;
-        color.b = 255 - color.b;
+        SDL_Color border_color;
+        border_color.r = 255 - color.r;
+        border_color.g = 255 - color.g;
+        border_color.b = 255 - color.b;
+        border_color.a = color.a;
+
+        SDL_Rect border {
+            output.x - 1,
+            output.y - 1,
+            output.w - 2,
+            output.h - 2
+        };
 
         SDL_SetRenderDrawColor(_rnd,
-            color.r, color.g, color.b, color.a);
+            border_color.r, border_color.g,
+            border_color.b, border_color.a);
 
-        output.x++; output.y++;
-        output.w -= 2; output.h -= 2;
-        SDL_RenderDrawRect(_rnd, &output);
+        SDL_RenderDrawRect(_rnd, &border);
+    }
+
+    if(*tile & TILE_BONUS)
+    {
+        SDL_Rect border {
+            output.x + output.w * 3 / 10,
+            output.y + output.h * 3 / 10,
+            output.w * 2 / 5,
+            output.h * 2 / 5
+        };
+
+        SDL_SetRenderDrawColor(_rnd,
+            bonus_color.r, bonus_color.g,
+            bonus_color.b, bonus_color.a);
+
+        SDL_RenderFillRect(_rnd, &border);
     }
 }
 
 SDL_Color Board::get_color(tile_t* tile) const
 {
     if(tile)
-        switch(*tile)
+        switch(*tile & TILE_TYPE_MASK)
         {
             case 0: return {   0,   0,   0, 255};
             case 1: return { 255,   0,   0, 255};

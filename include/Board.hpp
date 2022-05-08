@@ -46,6 +46,13 @@ public:
     SDL_Color get_color(tile_t*) const;
 
 
+    /** State data
+     *  ______________ __________________
+     * |              |                  |
+     * | 4bit - state | 4bit - animation |
+     * |______________|__________________|
+     * 
+     */
     enum : uint8_t {
         ANIMATION_MASK          = 0x0f,
         STATE_MASK              = 0xf0,
@@ -65,26 +72,30 @@ public:
         STATE_SWAPPING_TO_RETURNING = 1 << 4
     };
 
+    /**  Tile data:
+     *  ______________ ______________ _____________
+     * |              |              |             |
+     * | 3bit - extra | 1bit - bonus | 4bit - type |
+     * |______________|______________|_____________|
+     *
+     */
     enum : tile_t {
-        
+        TILE_TYPE_MASK = 0x0f,
+
+        TILE_BONUS = 0x10,
     };
+
+
+    void assign_score(tile_t*, int combo);    
+    double _color_score[TILE_TYPE_MASK] {0};
 
 private:
     uint8_t _w, _h;
-    tile_t* _tiles = nullptr;
     tile_t* _selected = nullptr;
 
+    tile_t* _tiles = nullptr;
+
     uint8_t* _state = nullptr;
-    /*  ______________ _________________
-     * |              |                 |
-     * | 4bit - state | 4bit - cooldown |
-     * |______________|_________________|
-     *  
-     * States
-     * 0 - normal, moveable.
-     * 1 - breaking
-     * 2 - falling from up
-     */
 
     void fill(tile_t* tile);
 };

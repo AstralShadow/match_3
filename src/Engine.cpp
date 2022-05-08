@@ -52,9 +52,18 @@ void Engine::run()
 
     float next = SDL_GetTicks();
     float step = 1000.0f / TARGET_FRAMERATE;
+    int unstable_rate = 0;
     while(_running)
     {
-        while(next > SDL_GetTicks());
+        if(unstable_rate > 15)
+        {
+            while(next > SDL_GetTicks());
+        }
+        else
+        {
+            SDL_Delay(next - SDL_GetTicks());
+        }
+
         next += step;
         int skipped_frames = 0;
         while(next < SDL_GetTicks())
@@ -63,8 +72,31 @@ void Engine::run()
             skipped_frames++;
         }
         if(skipped_frames > 0)
+        {
             std::cout << "Skipping " << skipped_frames
                 << " frames." << std::endl;
+            unstable_rate++;
+            if(unstable_rate == 15)
+            {
+                std::cout << "Activating performance "
+                    << " framerate governor."
+                    << std::endl;
+            }
+            if(unstable_rate == 30)
+            {
+                std::cout << "Decreasing desired "
+                    << "framerate to half."
+                    << std::endl;
+                step *= 2;
+            }
+            if(unstable_rate == 45)
+            {
+                std::cout << "You should contact the "
+                    << "developer or buy another "
+                    << "machine at this point."
+                    << std::endl;
+            }
+        }
 
         poll_events();
         tick((1 + skipped_frames) * step);

@@ -22,8 +22,9 @@ bool Board::check(tile_t* tile)
         tile_t* row_end = _tiles + (y + 1) * _w;
         while(other < row_end)
         {
+            const auto type_m = TILE_TYPE_MASK;
             auto state2 = *get_state(other);
-            if(*other != *tile ||
+            if((*other & type_m) != (*tile & type_m) ||
                 (STATE_NORMAL != state2
                     && breaking != state2))
             {
@@ -34,8 +35,11 @@ bool Board::check(tile_t* tile)
         }
 
         if(same > 2) 
-            for(int i = 0; i < same; i++)
-                *get_state(tile + i) = breaking;
+        for(int i = 0; i < same; i++)
+        {
+            assign_score(tile + i, same);
+            *get_state(tile + i) = breaking;
+        }
     }
 
     if(y < _h - 2)
@@ -45,8 +49,9 @@ bool Board::check(tile_t* tile)
         tile_t* col_end = _tiles + _h * _w + x;
         while(other < col_end)
         {
+            const auto type_m = TILE_TYPE_MASK;
             auto state2 = *get_state(other);
-            if(*other != *tile ||
+            if((*other & type_m) != (*tile & type_m) ||
                 (STATE_NORMAL != state2
                     && breaking != state2))
             {
@@ -57,8 +62,11 @@ bool Board::check(tile_t* tile)
         }
 
         if(same > 2)
-            for(int i = 0; i < same; i++)
-                *get_state(tile + i * _w) = breaking;
+        for(int i = 0; i < same; i++)
+        {
+            assign_score(tile + i * _w, same);
+            *get_state(tile + i * _w) = breaking;
+        }
     }
 
     return STATE_NORMAL != *state;
@@ -71,4 +79,3 @@ bool Board::check_all()
         result = check(_tiles + i) || result;
     return result;
 }
-
