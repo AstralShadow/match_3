@@ -141,6 +141,10 @@ void Board::swap(tile_t* other)
             match = check((*this)(x2 - i, y2)) || match;
             match = check((*this)(x2, y2 - i)) || match;
         }
+        if(!match)
+        {
+            std::swap(*other, *_selected);
+        }
     }
 }
 
@@ -164,10 +168,13 @@ bool Board::check(tile_t* tile)
         tile_t* row_end = _tiles + (y + 1) * _w;
         while(other < row_end)
         {
-            if(*other != *tile)
+            auto state2 = *get_state(other);
+            if(*other != *tile ||
+                (STATE_NORMAL != state2
+                    && breaking != state2))
+            {
                 break;
-            if(STATE_NORMAL != *get_state(other))
-                break;
+            }
             same++;
             other++;
         }
@@ -184,10 +191,13 @@ bool Board::check(tile_t* tile)
         tile_t* col_end = _tiles + _h * _w + x;
         while(other < col_end)
         {
-            if(*other != *tile)
+            auto state2 = *get_state(other);
+            if(*other != *tile ||
+                (STATE_NORMAL != state2
+                    && breaking != state2))
+            {
                 break;
-            if(STATE_NORMAL != *get_state(other))
-                break;
+            }
             same++;
             other += _w;
         }
