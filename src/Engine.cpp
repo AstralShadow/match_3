@@ -59,9 +59,9 @@ void Engine::run()
         {
             while(next > SDL_GetTicks());
         }
-        else
+        else if(next > SDL_GetTicks())
         {
-            SDL_Delay(next - SDL_GetTicks());
+            SDL_Delay((uint32_t) (next - SDL_GetTicks()));
         }
 
         next += step;
