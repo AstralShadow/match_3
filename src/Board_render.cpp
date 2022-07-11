@@ -17,6 +17,8 @@ void Board::render(SDL_Renderer* _rnd, SDL_Rect area)
         {
             tile_t* tile = (*this)(x, y);
             render_tile(_rnd, tile, output);
+            if(_focused == tile)
+                render_focus_frame(_rnd, output);
 
             output.y += output.h;
         }
@@ -36,7 +38,6 @@ void Board::render_tile(SDL_Renderer* _rnd,
     auto* state_ptr = get_state(tile);
     auto state = *state_ptr & STATE_MASK;
     auto animation = *state_ptr & ANIMATION_MASK;
-
 
     if(STATE_FALLING == state)
         output.y -= output.h * animation / 16;
@@ -91,8 +92,8 @@ void Board::render_tile(SDL_Renderer* _rnd,
         border_color.a = color.a;
 
         SDL_Rect border {
-            output.x - 1,
-            output.y - 1,
+            output.x + 1,
+            output.y + 1,
             output.w - 2,
             output.h - 2
         };
@@ -101,6 +102,11 @@ void Board::render_tile(SDL_Renderer* _rnd,
             border_color.r, border_color.g,
             border_color.b, border_color.a);
 
+        SDL_RenderDrawRect(_rnd, &border);
+        border.x++;
+        border.y++;
+        border.w -= 2;
+        border.h -= 2;
         SDL_RenderDrawRect(_rnd, &border);
     }
 
@@ -147,3 +153,17 @@ SDL_Color Board::get_color(uint8_t type) const
 }
 
 
+void Board::render_focus_frame(SDL_Renderer* _rnd,
+                               SDL_Rect output)
+{
+    SDL_SetRenderDrawColor(_rnd, 0, 0, 0, 255);
+    
+    for(int i = 0; i < 2; i++)
+    {
+        output.x++;
+        output.y++;
+        output.w -= 2;
+        output.h -= 2;
+        SDL_RenderDrawRect(_rnd, &output);
+    }
+}

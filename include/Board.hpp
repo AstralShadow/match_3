@@ -29,10 +29,18 @@ public:
     tile_t* operator ()(uint8_t x, uint8_t y);
 
 
+    void focus(tile_t*);
+    tile_t* get_focused() { return _focused; }
     void select(tile_t*);
     tile_t* get_selected() { return _selected; }
     void move(tile_t*);
     void swap(tile_t*, tile_t*, bool animated = false);
+
+    void move_up();
+    void move_left();
+    void move_right();
+    void move_down();
+    void move_to_tile_offset(int);
 
 
     void tick(uint8_t progress = 1);
@@ -42,6 +50,7 @@ public:
 
     void render(SDL_Renderer*, SDL_Rect);
     void render_tile(SDL_Renderer*, tile_t*, SDL_Rect);
+    void render_focus_frame(SDL_Renderer*, SDL_Rect);
 
     SDL_Color get_color(tile_t*) const;
     SDL_Color get_color(uint8_t type) const;
@@ -95,6 +104,7 @@ public:
 private:
     uint8_t _w, _h;
     tile_t* _selected = nullptr;
+    tile_t* _focused = nullptr;
 
     tile_t* _tiles = nullptr;
 

@@ -10,6 +10,7 @@ Board::Board(uint8_t w, uint8_t h) :
 {
     for(int i = 0; i < w*h; i++)
         _state[i] = STATE_BREAKING;
+    _focused = _tiles;
 }
 
 Board::Board(Board const& other) :
@@ -22,6 +23,8 @@ Board::Board(Board const& other) :
 
     _state = new uint8_t[size];
     std::copy(other._state, other._state + size, _state);
+
+    _focused = _tiles;
 }
 
 void Board::operator =(Board const& other)
@@ -35,6 +38,8 @@ void Board::operator =(Board const& other)
 
     _state = new uint8_t[size];
     std::copy(other._state, other._state + size, _state);
+
+    _focused = _tiles;
 }
 
 Board::Board(Board&& other) :
@@ -45,6 +50,11 @@ Board::Board(Board&& other) :
 
     _state = other._state;
     other._state = nullptr;
+
+    _focused = other._focused;
+    _selected = other._selected;
+    other._focused = nullptr;
+    other._selected= nullptr;
 }
 
 Board::~Board()

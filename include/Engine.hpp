@@ -6,6 +6,8 @@
 struct SDL_Window;
 struct SDL_Renderer;
 struct SDL_MouseButtonEvent;
+struct SDL_MouseMotionEvent;
+struct SDL_KeyboardEvent;
 struct GameData;
 typedef uint8_t tile_t;
 
@@ -37,6 +39,8 @@ private:
 
     void poll_events();
     void process(SDL_MouseButtonEvent&);
+    void process(SDL_MouseMotionEvent&);
+    void process(SDL_KeyboardEvent&);
     void tick(float ms);
     void render();
 
