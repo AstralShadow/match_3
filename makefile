@@ -2,8 +2,9 @@ NAME=match_3
 CXX=g++
 __CXXFLAGS=-Og -g -std=c++11 \
 	-Wall -Wpedantic -Wextra \
-	-pthread \
-	-lSDL2 -lSDL2_image -lSDL2_ttf
+	-lSDL2
+	# -lSDL2_image -lSDL2_ttf
+	#  # -pthread
 
 LDXX=g++
 
@@ -23,7 +24,7 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-build: depend ctags ${SRC} ${BDIR}/${NAME}
+build: depend ${SRC} ${BDIR}/${NAME}
 
 ${DEP}: ${DDIR}/%.dep: ${SDIR}/%.cpp
 	mkdir -p ${DDIR}
