@@ -66,10 +66,10 @@ void Engine::process(SDL_MouseButtonEvent& ev)
     }
 }
 
-void Engine::process(SDL_MouseMotionEvent& ev)
+void Engine::process(SDL_MouseMotionEvent&)
 {
-    auto* tile = get_tile_at(ev.x, ev.y);
-    _data->board.focus(tile);
+    //auto* tile = get_tile_at(ev.x, ev.y);
+    //_data->board.focus(tile);
 }
 
 void Engine::process(SDL_KeyboardEvent& key)
