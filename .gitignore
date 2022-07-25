@@ -1,0 +1,6 @@
+# Makefile compilation binary and object dirs.
+bin/
+obj/
+dep/
+tags
+
