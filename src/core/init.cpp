@@ -123,6 +123,9 @@ void core::init(int argc, char** argv)
 #ifdef USE_SDL2_IMAGE
     init_sdl_image();
 #endif
+#ifdef USE_SDL2_TTF
+    init_sdl_ttf();
+#endif
 
     create_window();
     create_renderer();
