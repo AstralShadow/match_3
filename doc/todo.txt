@@ -1,0 +1,4 @@
+x 2022-08-04 2022-07-25 add makefile as dependency (so it recompiles on flag changes)
+x 2022-08-04 2022-07-25 link assets dir to bin
+x 2022-08-04 2022-07-25 Restore Q to quit hotkey.
+x 2022-08-04 2022-07-25 fix missing ttf init

@@ -43,7 +43,7 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-build: depend ${SRC} ${BDIR}/${NAME} # assets # ctags
+build: depend ${SRC} ${BDIR}/${NAME} assets # ctags
 
 ${DEP}: ${DDIR}/%.dep: ${SDIR}/%.cpp
 	mkdir -p ${DDIR}
@@ -54,8 +54,8 @@ ${DEP}: ${DDIR}/%.dep: ${SDIR}/%.cpp
 depend: ${DEP}
 include ${DEP}
 
-${OBJ}: ${ODIR}/%.o: ${SDIR}/%.cpp
-	mkdir -p ${ODIR}
+${OBJ}: ${ODIR}/%.o: ${SDIR}/%.cpp makefile
+	# mkdir -p ${ODIR}
 	echo "Compiling $@"
 	mkdir -p $$(dirname $@)
 	${CXX} -c -o $@ $< ${_CXXFLAGS}
@@ -68,7 +68,7 @@ ${BDIR}/${NAME}: ${OBJ}
 clean:
 	echo "Cleaning build files"
 	rm -r ${ODIR} ${DDIR}
-	#rm tags
+	# rm tags
 
 run: build
 	echo "Running ${NAME}"
@@ -81,10 +81,15 @@ ctags: ${SRC}
 assets: ${BDIR}/${ASSETS_DIR}/STAMP
 
 ${BDIR}/${ASSETS_DIR}/STAMP: ${ASSETS}
-	rm -r "${BDIR}/${ASSETS_DIR}"
+	if [ -d "${BDIR}/${ASSETS_DIR}" ]; then \
+		rm -r "${BDIR}/${ASSETS_DIR}"; \
+	fi
 	cp -r "${ASSETS_DIR}" "${BDIR}/${ASSETS_DIR}"
 	echo "Preparing assets"
-	cd ${BDIR}/${ASSETS_DIR} && ./prepare.sh
+	cd ${BDIR}/${ASSETS_DIR}
+	if [ -f "./prepare.sh" ]; then \
+		./prepare.sh; \
+	fi
 	touch $@
 
 
