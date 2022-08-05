@@ -11,6 +11,7 @@ namespace game
     typedef struct scene_uid_t* scene_uid;
 
     void init(int, char**, scene_uid = 0);
+    void deinit(scene_uid = 0);
     void tick(u32 ms, scene_uid = 0);
     void render(scene_uid = 0);
     
