@@ -3,8 +3,11 @@
 
 namespace core
 {
-    void init(int, char**);
-    void deinit();
+    void init_core(int, char**);
+    void deinit_core();
+
+    void init_scenes(int, char**);
+    void deinit_scenes();
 }
 
 #endif // INCLUDE_CORE_INIT_HPP

@@ -4,7 +4,8 @@
 
 using core::renderer;
 
-void game::render()
+
+void game::render(scene_uid)
 {
     SDL_RenderClear(core::renderer);
 

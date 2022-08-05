@@ -7,14 +7,14 @@ struct SDL_KeyboardEvent;
 
 namespace game
 {
-    void init(int, char**);
+    struct scene_uid_t;
+    typedef struct scene_uid_t* scene_uid;
 
-    void tick(u32 ms);
-
-    void render();
-
-    template<typename T>
-    extern void handle_event(T&);
+    void init(int, char**, scene_uid = 0);
+    void tick(u32 ms, scene_uid = 0);
+    void render(scene_uid = 0);
+    
+    void keydown(SDL_KeyboardEvent&, scene_uid = 0);
 }
 
 #endif // INCLUDE_GAME_HPP

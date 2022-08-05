@@ -11,7 +11,7 @@ using std::endl;
 int main(int argc, char** argv)
 {
     cout << "Initializing..." << endl;
-    core::init(argc, argv);
+    core::init_core(argc, argv);
 
     cout << "Running "
          << PROJECT_NAME << ' '
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
          << VERSION_MAJOR << '.'
          << VERSION_MINOR << endl;
 
-    core::deinit();
+    core::deinit_core();
 
     return 0;
 }

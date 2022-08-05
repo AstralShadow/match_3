@@ -1,4 +1,4 @@
-2022-08-05 create custom event structs
+2022-08-05 create custom event structs timer:0h-15m-0s
 2022-08-05 user input system - link input events with game actions
 x 2022-08-04 2022-07-25 add makefile as dependency (so it recompiles on flag changes)
 x 2022-08-04 2022-07-25 link assets dir to bin

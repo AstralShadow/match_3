@@ -1,5 +1,5 @@
 #include "core/core.hpp"
-#include "game/game.hpp"
+#include "core/scene.hpp"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_timer.h>
 
@@ -23,12 +23,12 @@ void core::run()
         last = now;
 
         if(raw > 1) {
-            core::poll_events();
-            game::tick(raw);
+            poll_events();
+            scene_tick(raw);
             buffer -= raw * freq / 1000;
         }
 
-        game::render();
+        scene_render();
     }
 }
 
@@ -43,30 +43,38 @@ void core::poll_events()
     SDL_Event ev;
     while(SDL_PollEvent(&ev)) {
         switch(ev.type) {
+
+        case SDL_KEYDOWN:
+            scene_keydown(ev.key);
+            break;
+        case SDL_KEYUP:
+            scene_keyup(ev.key);
+            break;
+
         case SDL_MOUSEMOTION:
-            game::handle_event(ev.motion);
+            scene_mouse_motion(ev.motion);
             break;
 
         case SDL_MOUSEWHEEL:
-            game::handle_event(ev.wheel);
-            break;
-
-        case SDL_KEYDOWN:
-        case SDL_KEYUP:
-            game::handle_event(ev.key);
+            scene_mouse_wheel(ev.wheel);
             break;
 
         case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP:
-            game::handle_event(ev.button);
+            scene_mousedown(ev.button);
             break;
 
+        case SDL_MOUSEBUTTONUP:
+            scene_mouseup(ev.button);
+            break;
+
+        /*
         case SDL_DROPFILE:
         case SDL_DROPTEXT:
         case SDL_DROPBEGIN:
         case SDL_DROPCOMPLETE:
             game::handle_event(ev.drop);
             break;
+        */
 
         case SDL_QUIT:
             core::stop();

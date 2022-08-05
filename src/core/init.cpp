@@ -114,7 +114,7 @@ void create_renderer()
 }
 
 
-void core::init(int argc, char** argv)
+void core::init_core(int argc, char** argv)
 {
     init_sdl();
 #ifdef USE_SDL2_NET
@@ -130,11 +130,14 @@ void core::init(int argc, char** argv)
     create_window();
     create_renderer();
 
-    game::init(argc, argv);
+    register_scenes();
+    init_scenes(argc, argv);
 }
 
-void core::deinit()
+void core::deinit_core()
 {
+    deinit_scenes();
+
     if(renderer)
         SDL_DestroyRenderer(renderer);
     if(window)
