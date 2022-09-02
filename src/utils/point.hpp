@@ -18,4 +18,34 @@ constexpr bool operator != (Point const& a,
     return !(a == b);
 }
 
+
+constexpr Point operator + (Point a, Point const& b)
+{
+    a.x += b.x;
+    a.y += b.y;
+    return a;
+}
+
+constexpr Point operator - (Point a, Point const& b)
+{
+    a.x -= b.x;
+    a.y -= b.y;
+    return a;
+}
+
+
+constexpr FPoint operator + (FPoint a, FPoint const& b)
+{
+    a.x += b.x;
+    a.y += b.y;
+    return a;
+}
+
+constexpr FPoint operator - (FPoint a, FPoint const& b)
+{
+    a.x -= b.x;
+    a.y -= b.y;
+    return a;
+}
+
 #endif // INCLUDE_POINT_HPP
