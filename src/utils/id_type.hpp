@@ -8,6 +8,8 @@ struct id_type
     T _val;
 
 
+    id_type() = default;
+
     id_type(T const& v) :
         _val(v)
     { }
