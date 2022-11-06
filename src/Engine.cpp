@@ -2,6 +2,9 @@
 #include <SDL2/SDL.h>
 #include <stdexcept>
 #include <iostream>
+#ifdef __EMSCRIPTEN__
+#include <emscripten/html5.h>
+#endif
 
 Engine::Engine()
 {
@@ -50,11 +53,15 @@ void Engine::run()
 {
     _running = true;
 
+#ifdef __EMSCRIPTEN__
+    emscripten_request_animation_frame_loop(&enscripten_loop, &*this);
+#else
     float next = SDL_GetTicks();
     float step = 1000.0f / TARGET_FRAMERATE;
     int unstable_rate = 0;
     while(_running)
     {
+
         if(unstable_rate > 15)
         {
             while(next > SDL_GetTicks());
@@ -102,4 +109,22 @@ void Engine::run()
         tick((1 + skipped_frames) * step);
         render();
     }
+#endif
 }
+
+#ifdef __EMSCRIPTEN__
+int Engine::enscripten_loop(double time, void* engine_ptr)
+{
+    static double last = time;
+    double progress = time - last;
+    last = time;
+
+    Engine* engine = static_cast<Engine*>(engine_ptr);
+    engine->poll_events();
+    //std::cout << "Progress: " << progress << std::endl;
+    engine->tick(progress);
+    engine->render();
+
+    return engine->_running ? EM_TRUE : EM_FALSE;
+}
+#endif

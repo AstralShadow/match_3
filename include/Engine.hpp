@@ -44,6 +44,10 @@ private:
     void tick(float ms);
     void render();
 
+#ifdef __EMSCRIPTEN__
+    static int enscripten_loop(double time, void* engine);
+#endif
+
     tile_t* get_tile_at(int mouse_x, int mouse_y);
 };
 

@@ -3,9 +3,10 @@
 
 using namespace std;
 
+Engine engine;
+
 int main(int, char**)
 {
-    Engine engine;
     engine.run();
 
     return 0;

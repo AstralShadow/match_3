@@ -8,7 +8,7 @@
 
 void Engine::init_game_data()
 {
-    _data = new GameData({8, 8});
+    _data = new GameData(Board(8, 8));
 }
 
 void Engine::tick(float ms)

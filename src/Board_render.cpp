@@ -6,8 +6,8 @@ void Board::render(SDL_Renderer* _rnd, SDL_Rect area)
     SDL_Rect output {
         area.x,
         area.y,
-        area.w / _w,
-        area.h / _h
+        _w > 0 ? area.w / _w : 0,
+        _h > 0 ? area.h / _h : 0
     };
 
     for(int x = 0; x < _w; x++)

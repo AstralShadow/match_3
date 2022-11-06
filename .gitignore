@@ -9,6 +9,9 @@ bin/
 obj/
 dep/
 tags
+bin_ems/
+obj_ems/
+dep_ems/
 
 # Precompiled headers
 .gch
