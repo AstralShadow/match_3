@@ -37,7 +37,7 @@ namespace core
 
 
     template<typename T>
-    void scene(string name, T nul = nullptr)
+    void scene(string name = "", T nul = nullptr)
     {
         using namespace std::placeholders;
 

@@ -35,7 +35,7 @@ static void init_sdl()
         string error = "Could not init SDL.\n";
         error += "SDL_Error: \n";
         error += SDL_GetError();
-        std::runtime_error(error.c_str());
+        throw std::runtime_error(error.c_str());
     }
 }
 
@@ -46,7 +46,7 @@ static void init_sdl_net()
         string error = "Could not init SDL.\n";
         error += "Net_Error: \n";
         error += SDLNet_GetError();
-        std::runtime_error(error.c_str());
+        throw std::runtime_error(error.c_str());
     }
 }
 #endif
@@ -60,7 +60,7 @@ void init_sdl_image()
     string error = "Could not init SDL.\n";
     error += "IMG_Error: \n";
     error += IMG_GetError();
-    std::runtime_error(error.c_str());
+    throw std::runtime_error(error.c_str());
 }
 #endif
 
@@ -71,7 +71,7 @@ void init_sdl_ttf()
         string error = "Could not init SDL.\n";
         error += "TTF_Error: \n";
         error += TTF_GetError();
-        std::runtime_error(error.c_str());
+        throw std::runtime_error(error.c_str());
     }
 }
 #endif
@@ -93,7 +93,7 @@ void create_window()
         string error = "Could not create window.\n";
         error += "SDL_Error: \n";
         error += SDL_GetError();
-        std::runtime_error(error.c_str());
+        throw std::runtime_error(error.c_str());
     }
 }
 
@@ -109,7 +109,7 @@ void create_renderer()
         string error = "Could not create renderer.\n";
         error += "SDL_Error: \n";
         error += SDL_GetError();
-        std::runtime_error(error.c_str());
+        throw std::runtime_error(error.c_str());
     }
 }
 
