@@ -30,8 +30,16 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-build: depend ${SRC} ${BDIR}/${NAME} html/*
+build: depend ${SRC} ${BDIR}/${NAME} html_files
+
+html_files: html/*
 	cp html/* ${BDIR}/
+
+${BDIR}/game.zip: build
+	if [ -f "${BDIR}/game.zip" ]; then rm ${BDIR}/game.zip; fi
+	echo "Creating game.zip"
+	zip ${BDIR}/game.zip ${BDIR}/*
+
 
 ${DEP}: ${DDIR}/%.dep: ${SDIR}/%.cpp
 	mkdir -p ${DDIR}
