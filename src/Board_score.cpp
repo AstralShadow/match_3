@@ -3,9 +3,9 @@
 #include <iostream>
 
 #define PRINT_SCORE true
-
 using std::cout;
 using std::endl;
+
 
 
 void Board::assign_score(tile_t* tile, int combo)
@@ -25,6 +25,11 @@ void Board::assign_score(tile_t* tile, int combo)
     else _total_color_combo = 0;
 
     _last_type = type;
+
+#if __EMSCRIPTEN__
+    #undef PRINT_SCORE
+    #define PRINT_SCORE false
+#endif
 
 #if PRINT_SCORE
     for(int i = 0; i < TILE_TYPE_MASK; i++)
