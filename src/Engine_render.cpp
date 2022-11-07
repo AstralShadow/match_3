@@ -8,7 +8,7 @@ void Engine::render()
 {
     auto& _rnd = _renderer;
 
-    SDL_SetRenderDrawColor(_rnd, 31, 31, 31, 255);
+    SDL_SetRenderDrawColor(_rnd, 0, 0, 0, 255);
     SDL_RenderClear(_rnd);
 
     int w, h;

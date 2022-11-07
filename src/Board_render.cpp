@@ -65,7 +65,7 @@ void Board::render_tile(SDL_Renderer* _rnd,
 
     if(STATE_BREAKING == state)
     {
-        int gray = 31;
+        int gray = 0;
         float rate = animation / 16.0f;
         color.r = color.r * rate + gray * (1.0f - rate);
         color.g = color.g * rate + gray * (1.0f - rate);

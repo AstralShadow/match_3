@@ -33,7 +33,8 @@ endif
 build: depend ${SRC} ${BDIR}/${NAME} html_files
 
 html_files: html/*
-	cp html/* ${BDIR}/
+	echo "Adding static files"
+	cp -v html/* ${BDIR}/
 
 ${BDIR}/game.zip: build
 	if [ -f "${BDIR}/game.zip" ]; then rm ${BDIR}/game.zip; fi
