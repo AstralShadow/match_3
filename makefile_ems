@@ -1,4 +1,4 @@
-NAME=match_3.html
+NAME=match_3.js
 CXX=em++
 __CXXFLAGS=-O2 -std=c++11 \
 	-Wall -Wpedantic -Wextra -g \
@@ -30,7 +30,8 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-build: depend ${SRC} ${BDIR}/${NAME}
+build: depend ${SRC} ${BDIR}/${NAME} html/*
+	cp html/* ${BDIR}/
 
 ${DEP}: ${DDIR}/%.dep: ${SDIR}/%.cpp
 	mkdir -p ${DDIR}
