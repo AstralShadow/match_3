@@ -85,6 +85,7 @@ ${BDIR}/${ASSETS_DIR}/STAMP: ${ASSETS}
 	if [ -d "${BDIR}/${ASSETS_DIR}" ]; then \
 		rm -r "${BDIR}/${ASSETS_DIR}"; \
 	fi
+	mkdir -p "${BDIR}"
 	cp -r "${ASSETS_DIR}" "${BDIR}/${ASSETS_DIR}"
 	echo "Preparing assets"
 	cd ${BDIR}/${ASSETS_DIR}
