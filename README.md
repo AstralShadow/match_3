@@ -2,46 +2,58 @@
 Nameless clone of a very popular group of games.
 
 
+# Gameplay
+
+## Controls
+Press the left mouse button on a tile, move the
+mouse in your desired direction and release.
+As alternative, you can use the WASD/Arrow keys
+to move around and select tiles with the spacebar.
+
+## Gems
+Some tiles have gems. They give extra points.
+
+## Scoring
+You might've noticed colored bars appearing on the
+sides of the screen. They fill up when you match
+certain colors of tiles.
+
+Currently that's their only purpose,
+but that will change.
+
+
 # Building
 Dependencies:
-GCC (or other C++11 compatable compiler),
-make,
-libsdl2
+ * C++ compatible compiler (g++ is set in makefile)
+ * [libSDL2](https://www.libsdl.org/)
 
-If you want to change the compiler or the compile
-flags, you can edit the makefile.
+## Linux
 
+    $ git clone https://github.com/AstralShadow/match_3.git
+    $ cd match_3
+    $ make -j$(nproc)
+    $ make run
 
-To build and run the game:
+## Web (Emscripten)
+Install and prepare the
+[Emscripten SDK](https://github.com/emscripten-core/emsdk).
+Use the makefile\_ems to compile the game.
 
-    git clone https://github.com/AstralShadow/match_3.git
-    cd match_3
-    make -j$(nproc)
-    make run
+    $ git clone https://github.com/AstralShadow/match_3.git
+    $ cd match_3
+    $ make -j ${nrpoc} -f makefile_ems
 
+Host `bin_ems` and open index.html in browser.
 
-## Windows
-The game is expected to work relatively fine under
-Windows. I haven't really tested it yet, and you
-will need to setup your compiler and SDL2 by yourself
+    $ cd bin_ems
+    $ python -m http.server
 
-I'll eventually use CMake later and make the build
-process easier for any windows users.
+## Windows and other
+The game should work on any system supported by SDL2.
+If that's not the case, open an issue or a pull request.
 
+Windows builds are not supported.
+To compile the game you will have to
+[Setup SDL](https://wiki.libsdl.org/SDL2/Installation)
+and add all `.cpp` files in `src/` to your IDE of choice.
 
-# Controls
-Use the mouse to click & drag tiles
-or use the WASD/Arrow keys to move
-and the space key to select.
-
-
-# Scoring
-Currently you can see your score as 6 different bars
-for every color. The bars reset on overflow and do
-pretty much nothing yet.
-
-You can also see your score in stdout if you run
-the application from a terminal.
-
-The current scoring system relies heavily on the count
-of the tiles you remove. Some tiles give bonus points.
