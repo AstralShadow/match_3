@@ -9,7 +9,7 @@ __CXXFLAGS=-Og -g -std=c++11 \
 LDXX=g++
 
 
-IDIR=include
+IDIR=src
 SDIR=src
 BDIR=bin
 ODIR=.obj

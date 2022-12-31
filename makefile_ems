@@ -15,7 +15,7 @@ LDFLAGS= ${__CXXFLAGS} \
 	# -lSDL2_image -lSDL2_ttf
 
 
-IDIR=include
+IDIR=src
 SDIR=src
 BDIR=bin_ems
 ODIR=.obj_ems
