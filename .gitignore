@@ -6,12 +6,12 @@ tags
 
 # Makefile compilation binary and object dirs.
 bin/
-obj/
-dep/
-tags
+.obj/
+.dep/
 bin_ems/
-obj_ems/
-dep_ems/
+.obj_ems/
+.dep_ems/
+tags
 
 # Precompiled headers
 .gch

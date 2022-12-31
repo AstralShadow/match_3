@@ -12,8 +12,8 @@ LDXX=g++
 IDIR=include
 SDIR=src
 BDIR=bin
-ODIR=obj
-DDIR=dep
+ODIR=.obj
+DDIR=.dep
 
 _CXXFLAGS = ${__CXXFLAGS} -I${IDIR} ${CXXFLAGS}
 SRC = $(shell find ${SDIR} -type f -name '*.cpp' -o -name ".backup" -prune -type f)
@@ -57,3 +57,4 @@ run: build
 ctags: ${SRC}
 	echo "Generating ctags"
 	ctags -R ${IDIR} ${SDIR}
+
