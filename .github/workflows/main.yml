@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main", "main-next" ]
+  pull_request:
+    branches: [ "main", "main-next" ]
+
+jobs:
+  build:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Update APT database
+      run: sudo apt update
+    - name: Install libsdl2-dev
+      run: sudo apt-get install libsdl2-dev gcc make
+    - name: make
+      run: make
