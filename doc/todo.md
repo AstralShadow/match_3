@@ -13,7 +13,7 @@ if i haven't added one yet.
 Execute different events when they fill up or get empty.
 
 
-# Use VSync
+---# Use VSync
 Provides constant framerate and limits system resource usage.
 
 
@@ -22,4 +22,8 @@ Provides constant framerate and limits system resource usage.
 That's not really prioritized. Might as well not do it, because:
  * As a desktop game, VSync should limit system usage enough.
  * Browsers increase the delay between frames when not focused.
+
+# Autoplaying Bot
+The game supports multiple movements at once. It's a waste of
+potential if i don't get a bot to play it at max speed.
 
