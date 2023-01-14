@@ -4,7 +4,7 @@
 
 void game::init(int, char**, scene_uid)
 {
-    init_board(32, 32);
+    init_board(8, 8);
 
 }
 
