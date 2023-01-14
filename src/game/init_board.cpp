@@ -26,6 +26,6 @@ void game::init_board(int width, int height)
 
 
     for(u32 i = 0; i < size; i++)
-        *(board.data) = create_tile();
+        *(board.data + i) = create_tile();
 }
 
