@@ -8,8 +8,6 @@ namespace game
     struct Tile
     {
         u8 color;
-        //int animation_end = 0;
-        
     };
 
     Tile create_tile();
