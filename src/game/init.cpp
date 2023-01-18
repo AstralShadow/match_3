@@ -4,7 +4,9 @@
 
 namespace game
 {
-    queue<move_t> move_queue;
+    queue<move_t> input_queue;
+    map<move_t, float> active_moves;
+    map<move_t, float> failed_moves;
 };
 
 

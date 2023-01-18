@@ -44,7 +44,8 @@ void game::mouseup(ButtonEv& ev, scene_uid)
 
     move_t move {mouse_focus, pos};
     validate_move(move);
-    input_queeu.push(move);
+    pos = move.second;
+    input_queue.push(move);
     pending_move = false;
     if(print_log)
         cout << "Move to " << pos.x
@@ -61,6 +62,7 @@ void game::mouse_motion(MotionEv& ev,
     if(pos.y != mouse_focus.y) {
         move_t move = {mouse_focus, pos};
         validate_move(move);
+        pos = move.second;
         input_queue.push(move);
         pending_move = false;
     }
