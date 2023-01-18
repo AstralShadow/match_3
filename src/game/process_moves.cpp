@@ -1,4 +1,5 @@
 #include "game/move_queue.hpp"
+#include "game/board.hpp"
 
 
 void game::process_moves(int time)
@@ -48,15 +49,21 @@ void game::begin_next_move()
         return;
 
     active_moves[next] = 0;
+    input_queue.pop();
 }
 
-void game::finish_move(move_t)
+void game::finish_move(move_t move)
 {
-
+    auto src = move.first;
+    auto dst = move.second;
+    auto t1 = get_tile(src.x, src.y);
+    auto t2 = get_tile(dst.x, dst.y);
+    std::swap(*t1, *t2);
     // swap
     // check for pairs
 
 }
+
 
 bool game::is_tile_in_use(Point pos)
 {

@@ -58,15 +58,14 @@ void game::mouse_motion(MotionEv& ev,
     if(!pending_move || !config::quick_draw)
         return;
     Point pos = get_board_pos(ev.x, ev.y);
-    if(pos.x != mouse_focus.x)
-    if(pos.y != mouse_focus.y) {
+    if(pos.x != mouse_focus.x || pos.y != mouse_focus.y) {
         move_t move = {mouse_focus, pos};
         validate_move(move);
         pos = move.second;
         input_queue.push(move);
         pending_move = false;
+        if(print_log)
+            cout << "Move to " << pos.x
+                 << "x" << pos.y << endl;
     }
-    if(print_log)
-        cout << "Move to " << pos.x
-             << "x" << pos.y << endl;
 }

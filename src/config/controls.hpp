@@ -3,7 +3,7 @@
 
 namespace config
 {
-    bool quick_draw = false;
+    bool quick_draw = true;
 }
 
 #endif
