@@ -16,6 +16,8 @@ namespace game
 
     void render_board();
     void render_tile(Tile* tile, SDL_Rect output);
+
+    extern Point keyboard_focus;
 };
 
 #endif // INCLUDE_RENDER_HPP

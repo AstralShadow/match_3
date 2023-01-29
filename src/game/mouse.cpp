@@ -15,7 +15,7 @@ using MotionEv = SDL_MouseMotionEvent;
 
 static Point mouse_focus {0, 0};
 static bool pending_move = false;
-static bool const print_log = true;
+static bool const print_log = false;
 
 Point game::get_board_pos(int x, int y)
 {
