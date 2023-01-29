@@ -2,8 +2,9 @@
 #include "game/board.hpp"
 
 
-void game::process_moves(int time)
+void game::process_moves(int ms)
 {
+    float time = ms * 1.0f / animation_duration;
     begin_next_move();
 
     /* Active Moves */
@@ -67,18 +68,8 @@ void game::finish_move(move_t move)
 
 bool game::is_tile_in_use(Point pos)
 {
-    for(auto pair : active_moves) {
-        auto p1 = pair.first.first;
-        auto p2 = pair.first.second;
-        if(pos.x == p1.x)
-            if(pos.y == p1.y)
-                return true;
-        if(pos.x == p2.x)
-            if(pos.y == p2.y)
-                return true;
-    }
-
-    for(auto pair : failed_moves) {
+    for(auto& collection : {active_moves, failed_moves})
+    for(auto pair : collection) {
         auto p1 = pair.first.first;
         auto p2 = pair.first.second;
         if(pos.x == p1.x)

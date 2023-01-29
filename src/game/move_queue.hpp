@@ -14,6 +14,8 @@ namespace game
     typedef pair<Point, Point> move_t;
     extern queue<move_t> input_queue;
 
+    const int animation_duration = 120; // ms
+
     // stores active moves and animation
     //  progress from 0 to 1
     extern map<move_t, float> // [0,1]
