@@ -19,5 +19,8 @@ void game::render_board()
         output.y = board_area.y + output.h * y;
 
         render_tile(tile, output);
+        if(x == keyboard_focus.x)
+        if(y == keyboard_focus.y)
+            render_tile_focus_frame(output);
     }
 }
