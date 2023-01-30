@@ -2,12 +2,12 @@
 #include "core/core.hpp"
 #include <SDL2/SDL_render.h>
 
-using core::renderer;
+static auto& rnd = core::renderer;
 
 
 void game::render(scene_uid)
 {
-    SDL_RenderClear(core::renderer);
+    SDL_RenderClear(rnd);
 
-    SDL_RenderPresent(core::renderer);
+    SDL_RenderPresent(rnd);
 }
