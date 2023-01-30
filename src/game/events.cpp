@@ -5,6 +5,7 @@
 
 void game::keydown(SDL_KeyboardEvent& ev, scene_uid)
 {
-    if(ev.keysym.sym == SDLK_q)
+    auto const& scancode = ev.keysym.scancode;
+    if(scancode == SDL_SCANCODE_Q)
         core::stop();
 }
