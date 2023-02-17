@@ -1,5 +1,5 @@
-#ifndef INCLUDE_SCENE_HPP
-#define INCLUDE_SCENE_HPP
+#ifndef INCLUDE_CORE_SCENE_HPP
+#define INCLUDE_CORE_SCENE_HPP
 
 #include "core/core.hpp"
 #include "core/hooks.hpp"
@@ -61,4 +61,4 @@ namespace core
     }
 }
 
-#endif // INCLUDE_SCENE_HPP
+#endif // INCLUDE_CORE_SCENE_HPP

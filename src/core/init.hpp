@@ -1,5 +1,5 @@
-#ifndef INCLUDE_CORE_INIT_HPP
-#define INCLUDE_CORE_INIT_HPP
+#ifndef INCLUDE_CORE_CORE_INIT_HPP
+#define INCLUDE_CORE_CORE_INIT_HPP
 
 namespace core
 {
@@ -10,4 +10,4 @@ namespace core
     void deinit_scenes();
 }
 
-#endif // INCLUDE_CORE_INIT_HPP
+#endif // INCLUDE_CORE_CORE_INIT_HPP

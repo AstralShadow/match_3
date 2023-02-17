@@ -1,5 +1,5 @@
-#ifndef INCLUDE_RENDER_CIRCLE_HPP
-#define INCLUDE_RENDER_CIRCLE_HPP
+#ifndef INCLUDE_UTILS_RENDER_CIRCLE_HPP
+#define INCLUDE_UTILS_RENDER_CIRCLE_HPP
 
 #include "utils/point.hpp"
 
@@ -15,4 +15,4 @@ void render_draw_circle(SDL_Renderer*,
                         Point pos, int radius,
                         int line_width = 1);
 
-#endif // INCLUDE_RENDER_CIRCLE_HPP
+#endif // INCLUDE_UTILS_RENDER_CIRCLE_HPP

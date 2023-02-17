@@ -1,5 +1,5 @@
-#ifndef INCLUDE_ID_TYPE_HPP
-#define INCLUDE_ID_TYPE_HPP
+#ifndef INCLUDE_UTILS_ID_TYPE_HPP
+#define INCLUDE_UTILS_ID_TYPE_HPP
 
 template<typename T>
 struct id_type
@@ -43,4 +43,4 @@ struct id_type
     }
 };
 
-#endif // INCLUDE_ID_TYPE_HPP
+#endif // INCLUDE_UTILS_ID_TYPE_HPP

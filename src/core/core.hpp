@@ -1,5 +1,5 @@
-#ifndef INCLUDE_CORE_HPP
-#define INCLUDE_CORE_HPP
+#ifndef INCLUDE_CORE_CORE_HPP
+#define INCLUDE_CORE_CORE_HPP
 
 #include "utils/types.hpp"
 #include "core/version.hpp"
@@ -40,4 +40,4 @@ namespace core
     void scene_mousedown(SDL_MouseButtonEvent&);
 }
 
-#endif // INCLUDE_CORE_HPP
+#endif // INCLUDE_CORE_CORE_HPP

@@ -1,5 +1,5 @@
-#ifndef INCLUDE_GAME_HPP
-#define INCLUDE_GAME_HPP
+#ifndef INCLUDE_GAME_GAME_HPP
+#define INCLUDE_GAME_GAME_HPP
 
 #include "utils/types.hpp"
 
@@ -18,4 +18,4 @@ namespace game
     void keydown(SDL_KeyboardEvent&, scene_uid = 0);
 }
 
-#endif // INCLUDE_GAME_HPP
+#endif // INCLUDE_GAME_GAME_HPP

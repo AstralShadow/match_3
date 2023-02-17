@@ -1,5 +1,5 @@
-#ifndef INCLUDE_HOOKS_HPP
-#define INCLUDE_HOOKS_HPP
+#ifndef INCLUDE_CORE_HOOKS_HPP
+#define INCLUDE_CORE_HOOKS_HPP
 
 #include "utils/types.hpp"
 
@@ -96,4 +96,4 @@ namespace core
 
 }
 
-#endif // INCLUDE_HOOKS_HPP
+#endif // INCLUDE_CORE_HOOKS_HPP

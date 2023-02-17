@@ -1,5 +1,5 @@
-#ifndef INCLUDE_TYPES_HPP
-#define INCLUDE_TYPES_HPP
+#ifndef INCLUDE_UTILS_TYPES_HPP
+#define INCLUDE_UTILS_TYPES_HPP
 
 #include <cstdint>
 
@@ -14,4 +14,4 @@ typedef int32_t i32;
 typedef int64_t i64;
 
 
-#endif // INCLUDE_TYPES_HPP
+#endif // INCLUDE_UTILS_TYPES_HPP

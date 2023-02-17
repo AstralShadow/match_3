@@ -1,5 +1,5 @@
-#ifndef INCLUDE_POINT_HPP
-#define INCLUDE_POINT_HPP
+#ifndef INCLUDE_UTILS_POINT_HPP
+#define INCLUDE_UTILS_POINT_HPP
 
 #include <SDL2/SDL_rect.h>
 
@@ -48,4 +48,4 @@ constexpr FPoint operator - (FPoint a, FPoint const& b)
     return a;
 }
 
-#endif // INCLUDE_POINT_HPP
+#endif // INCLUDE_UTILS_POINT_HPP
