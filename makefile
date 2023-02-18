@@ -36,6 +36,7 @@ BDIR=bin
 ODIR=.obj
 DDIR=.dep
 ASSETS_DIR=assets
+HOOKS_DIR=hooks
 
 _CXXFLAGS = ${__CXXFLAGS} ${CONFIG} -I${IDIR} -I${ODIR}/${IDIR} ${CXXFLAGS}
 SRC = $(shell find ${SDIR} -type f -name '*.cpp' -o -name ".backup" -prune -type f)
@@ -75,8 +76,16 @@ clean:
 	# rm tags
 
 run: build
+	if [ -f "${HOOKS_DIR}/pre_run.sh" ]; then \
+		echo "Executing ${HOOKS_DIR}/pre_run.sh"; \
+		./${HOOKS_DIR}/pre_run.sh; \
+	fi
 	echo "Running ${NAME}"
 	cd ${BDIR} && ./${NAME} $(ARGS)
+	if [ -f "${HOOKS_DIR}/post_run.sh" ]; then \
+		echo "Executing ${HOOKS_DIR}/post_run.sh"; \
+		./${HOOKS_DIR}/post_run.sh; \
+	fi
 
 ctags: ${SRC}
 	echo "Generating ctags"
@@ -89,11 +98,12 @@ ${BDIR}/${ASSETS_DIR}/STAMP: ${ASSETS}
 		rm -r "${BDIR}/${ASSETS_DIR}"; \
 	fi
 	mkdir -p "${BDIR}"
+	echo "Cloning assets"
 	cp -r "${ASSETS_DIR}" "${BDIR}/${ASSETS_DIR}"
-	echo "Preparing assets"
-	cd ${BDIR}/${ASSETS_DIR}
-	if [ -f "./prepare.sh" ]; then \
-		./prepare.sh; \
+	if [ -f "${HOOKS_DIR}/post_assets_copy.sh" ]; then \
+		env ASSETS_DIR="${ASSETS_DIR}" \
+			BDIR="${BDIR}" \
+			./${HOOKS_DIR}/post_assets_copy.sh; \
 	fi
 	touch $@
 
