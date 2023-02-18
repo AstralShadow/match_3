@@ -78,13 +78,17 @@ clean:
 run: build
 	if [ -f "${HOOKS_DIR}/pre_run.sh" ]; then \
 		echo "Executing ${HOOKS_DIR}/pre_run.sh"; \
-		./${HOOKS_DIR}/pre_run.sh; \
+		env ASSETS_DIR="${ASSETS_DIR}" \
+			BDIR="${BDIR}" \
+			./${HOOKS_DIR}/pre_run.sh; \
 	fi
 	echo "Running ${NAME}"
 	cd ${BDIR} && ./${NAME} $(ARGS)
 	if [ -f "${HOOKS_DIR}/post_run.sh" ]; then \
 		echo "Executing ${HOOKS_DIR}/post_run.sh"; \
-		./${HOOKS_DIR}/post_run.sh; \
+		env ASSETS_DIR="${ASSETS_DIR}" \
+			BDIR="${BDIR}" \
+			./${HOOKS_DIR}/post_run.sh; \
 	fi
 
 ctags: ${SRC}
