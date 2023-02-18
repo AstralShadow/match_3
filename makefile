@@ -3,6 +3,8 @@ VERSION_MAJOR=0
 VERSION_MINOR=0
 
 CXX=g++
+LD=g++
+
 CONFIG = -D CORE_CONFIG \
 	-D PROJECT_NAME=\"${NAME}\"\
 	-D VERSION_MAJOR=${VERSION_MAJOR} \
@@ -23,7 +25,8 @@ __CXXFLAGS=-Og -g -std=c++17 \
 	#-lSDL2_mixer \
 	#-lSDL2_net
 
-LDXX=ldd
+LDFLAGS = ${__CXXFLAGS} \
+	#
 
 
 IDIR=src
@@ -56,7 +59,6 @@ depend: ${DEP}
 include ${DEP}
 
 ${OBJ}: ${ODIR}/%.o: ${SDIR}/%.cpp makefile
-	# mkdir -p ${ODIR}
 	echo "Compiling $@"
 	mkdir -p $$(dirname $@)
 	${CXX} -c -o $@ $< ${_CXXFLAGS}
@@ -64,7 +66,7 @@ ${OBJ}: ${ODIR}/%.o: ${SDIR}/%.cpp makefile
 ${BDIR}/${NAME}: ${OBJ}
 	mkdir -p ${BDIR}
 	echo "Linking ${NAME}"
-	$(CXX) -o $@ ${OBJ} ${_CXXFLAGS}
+	${LD} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
 	echo "Cleaning build files"
