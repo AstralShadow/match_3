@@ -1,0 +1,13 @@
+All formats start with u32 describing their version.
+This way i can have lodaing logic for all versions.
+
+Common functions implement storage of basic data types:
+    string, u8, u16, u32, u64
+Integer types are written in Big Endian format.
+Strings store their length as u32 before their content.
+
+Floats have multiple storage options:
+    mapf and unmapf, which are untested and may not work
+    raw storage (writef, readf), which is system specific
+    substract, multiply and cast to int
+
