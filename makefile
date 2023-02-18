@@ -29,8 +29,8 @@ LDXX=ldd
 IDIR=src
 SDIR=src
 BDIR=bin
-ODIR=obj
-DDIR=dep
+ODIR=.obj
+DDIR=.dep
 ASSETS_DIR=assets
 
 _CXXFLAGS = ${__CXXFLAGS} ${CONFIG} -I${IDIR} -I${ODIR}/${IDIR} ${CXXFLAGS}
