@@ -34,7 +34,7 @@ namespace game
     void begin_next_move();
     void finish_move(move_t);
 
-    bool is_tile_in_use(Point);
+    bool is_tile_moving(Point);
 
 };
 
