@@ -1,4 +1,5 @@
 #include "game/move_queue.hpp"
+#include "game/tile_lines.hpp"
 #include "game/board.hpp"
 
 
@@ -60,10 +61,11 @@ void game::finish_move(move_t move)
     auto t1 = get_tile(src.x, src.y);
     auto t2 = get_tile(dst.x, dst.y);
     std::swap(*t1, *t2);
-    // swap
+
+    detect_lines(src);
+    detect_lines(dst);
+
     // check for pairs
-
-
 
 }
 
