@@ -3,6 +3,11 @@
 using game::Tile;
 
 
+Tile* game::get_tile(Point p)
+{
+    return get_tile(p.x, p.y);
+}
+
 Tile* game::get_tile(int x, int y)
 {
     int size = board.width * board.height;

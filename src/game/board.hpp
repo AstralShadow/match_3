@@ -2,6 +2,7 @@
 #define INCLUDE_BOARD_HPP
 
 #include "game/tile.hpp"
+#include "utils/point.hpp"
 
 
 namespace game
@@ -20,6 +21,8 @@ namespace game
     void init_board(int width, int height);
 
     Tile* get_tile(int x, int y);
+    Tile* get_tile(Point);
+    Point get_tile_pos(Tile*);
 }
 
 #endif // INCLUDE_BOARD_HPP
