@@ -12,13 +12,12 @@ Tile* game::get_tile(int x, int y)
 {
     int size = board.width * board.height;
 
-    int pos = x + y * board.width;
-    if(pos < 0)
+    if(x < 0 || x >= board.width)
+        return nullptr;
+    if(y < 0 || y >= board.height)
         return nullptr;
 
-    if(pos < size)
-        return board.data + pos;
-
-    return nullptr;
+    int pos = x + y * board.width;
+    return board.data + pos;
 }
 
