@@ -6,7 +6,7 @@
 
 void game::process_moves(int ms)
 {
-    float time = ms * 1.0f / animation_duration;
+    float time = ms * 1.0f / config::move_duration;
     begin_next_move();
 
     /* Active Moves */
