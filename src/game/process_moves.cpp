@@ -24,7 +24,7 @@ void game::process_moves(int ms)
     /* Cancelled Moves */
     itr = failed_moves.begin();
     while(itr != failed_moves.end()) {
-        itr->second += time;
+        itr->second -= time;
         if(itr->second < 0) {
             itr = failed_moves
                 .erase(itr);
