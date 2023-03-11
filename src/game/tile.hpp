@@ -16,6 +16,8 @@ namespace game
     bool is_tile_in_use(Point);
 
     bool are_similar(Tile*, Tile*);
+    bool is_tile_empty(Tile*);
+    bool is_tile_empty(Point pos);
 }
 
 #endif // INCLUDE_GAME_TILE_HPP

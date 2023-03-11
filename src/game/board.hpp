@@ -26,7 +26,6 @@ namespace game
 
     // Replaces the tile with empty one
     void remove_tile(Point pos);
-    bool is_tile_empty(Point pos);
 }
 
 #endif // INCLUDE_GAME_BOARD_HPP
