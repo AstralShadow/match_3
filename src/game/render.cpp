@@ -8,9 +8,9 @@ static auto& rnd = core::renderer;
 namespace game
 {
     SDL_Rect board_area {
-        200 + (600 - 512) / 2,
-        (600 - 512) / 2,
-        512, 512
+        200, // 200 + (600 - 512) / 2,
+        0, //(600 - 512) / 2,
+        600, 600 //512, 512
     };
 }
 
