@@ -10,8 +10,6 @@ Tile* game::get_tile(Point p)
 
 Tile* game::get_tile(int x, int y)
 {
-    int size = board.width * board.height;
-
     if(x < 0 || x >= board.width)
         return nullptr;
     if(y < 0 || y >= board.height)

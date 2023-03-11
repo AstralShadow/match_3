@@ -15,8 +15,7 @@ void game::process_moves(int ms)
         itr->second += time;
         if(itr->second >= 1) {
             auto move = itr->first;
-            itr = active_moves
-                .erase(itr);
+            itr = active_moves.erase(itr);
             finish_move(move);
         } else ++itr;
     }
@@ -26,8 +25,7 @@ void game::process_moves(int ms)
     while(itr != failed_moves.end()) {
         itr->second -= time;
         if(itr->second < 0) {
-            itr = failed_moves
-                .erase(itr);
+            itr = failed_moves.erase(itr);
         } else ++itr;
     }
 }

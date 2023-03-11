@@ -12,8 +12,7 @@ void game::process_lines(int ms)
         itr->progress += time;
         if(itr->progress > 1) {
             remove_line(&*itr);
-            itr = break_animation
-                .erase(itr);
+            itr = break_animation.erase(itr);
         } else ++itr;
     }
 }
