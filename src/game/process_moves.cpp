@@ -65,11 +65,12 @@ void game::finish_move(move_t move)
     auto t2 = get_tile(dst.x, dst.y);
     std::swap(*t1, *t2);
 
-    detect_lines(src);
-    detect_lines(dst);
+    bool line = detect_lines(src) || detect_lines(dst);
 
-    // check for pairs
-
+    if(!config::permit_free_moves && !line) {
+        std::swap(*t1, *t2);
+        failed_moves[move] = 1;
+    }
 }
 
 
