@@ -8,8 +8,13 @@
 
 using game::Tile;
 
+
 static auto& rnd = core::renderer;
-static void set_color(Tile*);
+
+namespace game
+{
+    static void set_color(Tile*);
+}
 
 
 void game::render_tile(Tile* tile, SDL_Rect output)
@@ -17,26 +22,23 @@ void game::render_tile(Tile* tile, SDL_Rect output)
     set_color(tile);
 
     SDL_RenderFillRect(rnd, &output);
-
-    if(is_tile_in_line(get_tile_pos(tile))) {
-        SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
-        for(int i = 0; i < 3; ++i) {
-            SDL_RenderDrawRect(rnd, &output);
-            output.x += 1;
-            output.y += 1;
-            output.w -= 2;
-            output.h -= 2;
-        }
-    }
 }
 
 
-void set_color(Tile* tile)
+void game::set_color(Tile* tile)
 {
     auto color = game::colors[tile->color];
+
+    Point pos = get_tile_pos(tile);
+    float break_progress = get_tile_line_progress(pos);
+    color.r *= 1 - break_progress;
+    color.g *= 1 - break_progress;
+    color.b *= 1 - break_progress;
+
     SDL_SetRenderDrawColor(rnd,
         color.r, color.g, color.b, 255);
 }
+
 
 void game::render_tile_focus_frame(SDL_Rect output)
 {

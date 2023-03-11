@@ -22,6 +22,7 @@ namespace game
     bool detect_lines(Point);
 
     bool is_tile_in_line(Point);
+    float get_tile_line_progress(Point);
 
     void process_lines(int);
     void remove_line(Line*);
