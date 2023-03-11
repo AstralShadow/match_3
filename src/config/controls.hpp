@@ -1,9 +1,9 @@
-#ifndef INCLUDE_CONTROLS_HPP
-#define INCLUDE_CONTROLS_HPP
+#ifndef INCLUDE_CONFIG_CONTROLS_HPP
+#define INCLUDE_CONFIG_CONTROLS_HPP
 
 namespace config
 {
     bool quick_draw = true;
 }
 
-#endif
+#endif // INCLUDE_CONFIG_CONTROLS_HPP

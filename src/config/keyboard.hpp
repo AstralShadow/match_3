@@ -1,5 +1,5 @@
-#ifndef INCLUDE_KEYBOARD_CONFIG_HPP
-#define INCLUDE_KEYBOARD_CONFIG_HPP
+#ifndef INCLUDE_CONFIG_KEYBOARD_CONFIG_HPP
+#define INCLUDE_CONFIG_KEYBOARD_CONFIG_HPP
 
 #include "utils/types.hpp"
 #include <SDL2/SDL_keyboard.h>
@@ -61,4 +61,4 @@ namespace config
 #endif
 }
 
-#endif // INCLUDE_KEYBOARD_CONFIG_HPP
+#endif // INCLUDE_CONFIG_KEYBOARD_CONFIG_HPP

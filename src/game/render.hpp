@@ -1,5 +1,5 @@
-#ifndef INCLUDE_RENDER_HPP
-#define INCLUDE_RENDER_HPP
+#ifndef INCLUDE_GAME_RENDER_HPP
+#define INCLUDE_GAME_RENDER_HPP
 
 #include <SDL2/SDL_rect.h>
 #include "utils/point.hpp"
@@ -23,4 +23,4 @@ namespace game
     extern Point keyboard_focus;
 };
 
-#endif // INCLUDE_RENDER_HPP
+#endif // INCLUDE_GAME_RENDER_HPP

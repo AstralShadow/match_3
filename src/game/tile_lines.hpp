@@ -1,5 +1,5 @@
-#ifndef INCLUDE_TILE_LINES_HPP
-#define INCLUDE_TILE_LINES_HPP
+#ifndef INCLUDE_GAME_TILE_LINES_HPP
+#define INCLUDE_GAME_TILE_LINES_HPP
 
 #include "game/tile.hpp"
 #include <vector>
@@ -24,4 +24,4 @@ namespace game
     bool is_tile_in_line(Point);
 }
 
-#endif // INCLUDE_TILE_LINES_HPP
+#endif // INCLUDE_GAME_TILE_LINES_HPP

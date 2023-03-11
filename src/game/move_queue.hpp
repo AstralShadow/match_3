@@ -1,5 +1,5 @@
-#ifndef INCLUDE_MOVE_QUEUE_HPP
-#define INCLUDE_MOVE_QUEUE_HPP
+#ifndef INCLUDE_GAME_MOVE_QUEUE_HPP
+#define INCLUDE_GAME_MOVE_QUEUE_HPP
 
 #include <queue>
 #include <map>
@@ -41,4 +41,4 @@ namespace game
 bool operator < (const Point a,
                  const Point b);
 
-#endif
+#endif // INCLUDE_GAME_MOVE_QUEUE_HPP

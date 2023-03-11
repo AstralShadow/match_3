@@ -1,5 +1,5 @@
-#ifndef INCLUDE_BOARD_HPP
-#define INCLUDE_BOARD_HPP
+#ifndef INCLUDE_GAME_BOARD_HPP
+#define INCLUDE_GAME_BOARD_HPP
 
 #include "game/tile.hpp"
 #include "utils/point.hpp"
@@ -25,4 +25,4 @@ namespace game
     Point get_tile_pos(Tile*);
 }
 
-#endif // INCLUDE_BOARD_HPP
+#endif // INCLUDE_GAME_BOARD_HPP

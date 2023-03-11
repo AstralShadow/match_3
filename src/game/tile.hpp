@@ -1,5 +1,5 @@
-#ifndef INCLUDE_TILE_HPP
-#define INCLUDE_TILE_HPP
+#ifndef INCLUDE_GAME_TILE_HPP
+#define INCLUDE_GAME_TILE_HPP
 
 #include "utils/types.hpp"
 #include "utils/point.hpp"
@@ -16,4 +16,4 @@ namespace game
     bool is_tile_in_use(Point);
 }
 
-#endif // INCLUDE_TILE_HPP
+#endif // INCLUDE_GAME_TILE_HPP
