@@ -18,13 +18,13 @@ bool game::detect_lines(Point pos)
 {
     bool success = false;
     for(auto direction : {Point{0, 1}, {1, 0}})
-        success = success
-            || check_direction(pos, direction);
+        success = check_direction(pos, direction)
+            || success;
 
     if(config::detect_diagonal_lines)
     for(auto direction : {Point{1, 1}, {1, -1}})
-        success = success
-            || check_direction(pos, direction);
+        success = check_direction(pos, direction)
+            || success;
 
     return success;
 }
