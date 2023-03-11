@@ -9,7 +9,7 @@ namespace game {
 }
 
 
-void game::init_board(int width, int height)
+void game::init_board(u32 width, u32 height)
 {
     u32 size = width * height;
 

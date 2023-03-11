@@ -18,7 +18,7 @@ namespace game
     extern Board board;
 
 
-    void init_board(int width, int height);
+    void init_board(u32 width, u32 height);
 
     Tile* get_tile(int x, int y);
     Tile* get_tile(Point);
