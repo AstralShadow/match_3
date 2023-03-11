@@ -1,5 +1,7 @@
 #include "game/render.hpp"
 #include "game/tile.hpp"
+#include "game/tile_lines.hpp"
+#include "game/board.hpp"
 #include "game/colors.hpp"
 #include "core/core.hpp"
 #include <SDL2/SDL_render.h>
@@ -15,6 +17,17 @@ void game::render_tile(Tile* tile, SDL_Rect output)
     set_color(tile);
 
     SDL_RenderFillRect(rnd, &output);
+
+    if(is_tile_in_line(get_tile_pos(tile))) {
+        SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
+        for(int i = 0; i < 3; ++i) {
+            SDL_RenderDrawRect(rnd, &output);
+            output.x += 1;
+            output.y += 1;
+            output.w -= 2;
+            output.h -= 2;
+        }
+    }
 }
 
 
