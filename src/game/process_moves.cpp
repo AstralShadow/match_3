@@ -1,6 +1,7 @@
 #include "game/move_queue.hpp"
 #include "game/tile_lines.hpp"
 #include "game/board.hpp"
+#include "config/game.hpp"
 
 
 void game::process_moves(int ms)
@@ -34,23 +35,25 @@ void game::begin_next_move()
 {
     if(input_queue.size() == 0)
         return;
-    auto next = input_queue.front();
-    validate_move(next);
-    auto target = next.first;
-    auto destination = next.second;
-    if(target.x == destination.x)
-        if(target.y == destination.y) {
+    auto move = input_queue.front();
+    validate_move(move);
+    auto target = move.first;
+    auto dest = move.second;
+    if(target.x == dest.x)
+        if(target.y == dest.y) {
             input_queue.pop();
             return;
         }
 
+    if(is_tile_in_use(target) || is_tile_in_use(dest)) {
+        if(config::requeue_waiting_moves)
+            input_queue.push(input_queue.front());
+        input_queue.pop();
 
-    if(is_tile_in_use(target))
         return;
-    if(is_tile_in_use(destination))
-        return;
+    }
 
-    active_moves[next] = 0;
+    active_moves[move] = 0;
     input_queue.pop();
 }
 
