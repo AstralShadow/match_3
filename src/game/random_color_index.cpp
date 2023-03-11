@@ -10,8 +10,9 @@ u8 game::random_color_index()
         std::random_device random_dev;
         return random_dev();
     })());
+
     static uniform_int distribution
-        (0, sizeof colors / sizeof colors[0] - 1);
+        (1, sizeof colors / sizeof colors[0] - 1);
 
     return distribution(generator);
 }

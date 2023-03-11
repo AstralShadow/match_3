@@ -11,8 +11,9 @@ namespace game
         u8 b;
     };
 
+    // Black#0 is reserved for empty tiles
     const Color colors[] = {
-        //{  0,   0,   0},
+        {  0,   0,   0},
         {255,   0,   0},
         {  0, 255,   0},
         {  0,   0, 255},
