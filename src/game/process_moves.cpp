@@ -14,9 +14,10 @@ void game::process_moves(int ms)
     while(itr != active_moves.end()) {
         itr->second += time;
         if(itr->second >= 1) {
-            finish_move(itr->first);
+            auto move = itr->first;
             itr = active_moves
                 .erase(itr);
+            finish_move(move);
         } else ++itr;
     }
 
