@@ -14,6 +14,8 @@ namespace game
     Tile create_tile();
 
     bool is_tile_in_use(Point);
+
+    bool are_similar(Tile*, Tile*);
 }
 
 #endif // INCLUDE_GAME_TILE_HPP
