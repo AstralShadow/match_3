@@ -22,6 +22,9 @@ namespace game
     bool detect_lines(Point);
 
     bool is_tile_in_line(Point);
+
+    void process_lines(int);
+    void remove_line(Line*);
 }
 
 #endif // INCLUDE_GAME_TILE_LINES_HPP
