@@ -17,14 +17,33 @@ namespace config
     // Free moves are moves that don't form a line
     extern bool permit_free_moves;
 
+    // Wether to permit diagonal tile falling
+    extern bool permit_diagonal_falling;
 
-    /* Animations*/
+    // Wether to detect lines formed while falling
+    extern bool detect_lines_when_falling;
 
-    // Move animation duration in ms
+    // Wether the falling waits for line destructions
+    extern bool falling_only_when_board_idle;
+
+
+    /* Animations (ms) */
+
+    // Move animation duration
     extern int move_duration;
 
-    // Line break animation duration in ms
+    // Line break animation duration
     extern int break_duration;
+
+    // Tile falling animation duration for 1 tile height
+    extern int fall_duration;
+
+    // Delay before activating tile falling
+    extern int fall_delay;
+
+    // What part of the fall duration a tile waits
+    //  before activating it's own fall animation
+    extern float fall_delay_factor;
 }
 
 #endif // INCLUDE_CONFIG_GAME_HPP
