@@ -12,9 +12,10 @@ namespace game
 bool game::is_tile_in_line(Point target)
 {
     for(Line const& line : break_animation) {
-        for(auto const other : line.tiles)
-            if(other == target)
-                return true;
+        if(line.process > 0)
+            for(auto const other : line.tiles)
+                if(other == target)
+                    return true;
     }
 
     return false;
