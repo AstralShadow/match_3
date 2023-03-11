@@ -1,6 +1,7 @@
 #include "config/controls.hpp"
 
-bool config::quick_draw = true;
+bool config::quick_draw = false;
+// TODO make diagonals possible when quick_draw = true
 
 
 #include "config/game.hpp"

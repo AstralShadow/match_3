@@ -6,7 +6,7 @@ namespace config
     /* Mechanics */
 
     // Wether to allow diagonal tile swaps
-    extern bool allow_diagonal_moves; // TODO use
+    extern bool allow_diagonal_moves;
 
     // Wether to detect lines on diagonals
     extern bool detect_diagonal_lines;
