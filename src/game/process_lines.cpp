@@ -9,8 +9,8 @@ void game::process_lines(int ms)
 
     auto itr = break_animation.begin();
     while(itr != break_animation.end()) {
-        itr->process += time;
-        if(itr->process > 1) {
+        itr->progress += time;
+        if(itr->progress > 1) {
             remove_line(&*itr);
             itr = break_animation
                 .erase(itr);

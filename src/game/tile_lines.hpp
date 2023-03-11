@@ -11,7 +11,7 @@ namespace game
     struct Line
     {
         std::vector<Point> tiles;
-        float process = 0; // [0, 1]
+        float progress = 0; // [0, 1]
     };
 
     // Stores detected lines
