@@ -8,7 +8,7 @@ namespace game
 {
     struct Tile
     {
-        u8 color;
+        u8 color = 0;
     };
 
     Tile create_tile();

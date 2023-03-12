@@ -24,8 +24,5 @@ void game::init_board(u32 width, u32 height)
          << width << "x" << height << endl;
     cout << "Board RAM: " << ram_usage << " B" << endl;
 
-
-    for(u32 i = 0; i < size; i++)
-        *(board.data + i) = create_tile();
 }
 
