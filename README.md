@@ -1,6 +1,8 @@
 # Match 3 in a row
 Nameless clone of a very popular group of games.
 
+Play at [itch.io](https://azcraft.itch.io/match-3).
+
 
 # Gameplay
 
