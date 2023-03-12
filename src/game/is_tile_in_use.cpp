@@ -2,6 +2,7 @@
 #include "game/board.hpp"
 #include "game/move_queue.hpp"
 #include "game/tile_lines.hpp"
+#include "game/falling_tiles.hpp"
 
 
 bool game::is_tile_in_use(Point pos)
@@ -13,6 +14,9 @@ bool game::is_tile_in_use(Point pos)
         return true;
 
     if(is_tile_empty(pos))
+        return true;
+
+    if(is_tile_falling(pos))
         return true;
 
     return false;
