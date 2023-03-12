@@ -11,7 +11,7 @@ bool config::detect_diagonal_lines = !false;
 bool config::requeue_waiting_moves = false;
 bool config::permit_free_moves = false;
 bool config::permit_diagonal_falling = true;
-bool config::detect_lines_when_falling = false;
+bool config::detect_lines_when_falling = true;
 bool config::falling_only_when_board_idle = false;
 
 /* Animations (ms) */

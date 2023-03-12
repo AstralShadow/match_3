@@ -7,7 +7,8 @@ using std::vector;
 
 namespace game
 {
-    static vector<Point> find_filling_path(Point pos);
+    static vector<Point>
+    find_filling_path(Point pos, bool can_diagonal);
 }
 
 
@@ -19,12 +20,16 @@ namespace game
 void game::activate_falling_tiles()
 {
     for(int y = board.height - 1; y >= 0; --y)
+    for(int diagonal = 0; diagonal < 2; ++diagonal)
     for(int x = 0; x < board.height; ++x) {
-        Point pos {x, y};
-        if(!is_tile_empty(pos))
+        if(diagonal && !config::permit_diagonal_falling)
             continue;
 
-        auto path = find_filling_path(pos);
+        Point pos {x, y};
+        if(!is_tile_empty(pos) || is_tile_falling(pos))
+            continue;
+
+        auto path = find_filling_path(pos, diagonal);
 
         for(u32 i = 1; i < path.size(); i++) {
             auto* bottom_tile = get_tile(path[i - 1]);
@@ -38,19 +43,23 @@ void game::activate_falling_tiles()
         }
 
         if(path.size() == 1)
-            break;
+            continue;
 
         falling_tiles.push_back({path});
     }
 }
 
-vector<Point> game::find_filling_path(Point pos)
+vector<Point>
+game::find_filling_path(Point pos, bool can_diagonal)
 {
     vector<Point> path {pos};
 
     while(pos.y != 0) {
-        vector<Point> src {Point{pos.x, pos.y - 1}};
-        if(config::permit_diagonal_falling) {
+        vector<Point> src;
+        src.push_back({pos.x, pos.y - 1});
+
+        using config::permit_diagonal_falling;
+        if(permit_diagonal_falling && can_diagonal) {
             src.push_back({pos.x + 1, pos.y - 1});
             src.push_back({pos.x - 1, pos.y - 1});
         }
