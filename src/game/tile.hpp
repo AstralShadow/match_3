@@ -11,6 +11,7 @@ namespace game
         u8 color = 0;
     };
 
+    bool can_create_tile();
     Tile create_tile();
 
     bool is_tile_in_use(Point);
