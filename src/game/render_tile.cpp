@@ -19,6 +19,9 @@ namespace game
 
 void game::render_tile(Tile* tile, SDL_Rect output)
 {
+    if(is_tile_empty(tile))
+        return;
+
     set_color(tile);
 
     SDL_RenderFillRect(rnd, &output);
