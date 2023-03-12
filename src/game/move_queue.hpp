@@ -31,6 +31,7 @@ namespace game
     void process_moves(int);
     void begin_next_move();
     void finish_move(move_t);
+    void finish_failed_move(move_t);
 
     bool is_tile_moving(Point);
 

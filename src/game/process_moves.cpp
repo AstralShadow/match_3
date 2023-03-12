@@ -25,7 +25,9 @@ void game::process_moves(int ms)
     while(itr != failed_moves.end()) {
         itr->second -= time;
         if(itr->second < 0) {
+            auto move = itr->first;
             itr = failed_moves.erase(itr);
+            finish_failed_move(move);
         } else ++itr;
     }
 }
@@ -71,6 +73,12 @@ void game::finish_move(move_t move)
         std::swap(*t1, *t2);
         failed_moves[move] = 1;
     }
+}
+
+void game::finish_failed_move(move_t move)
+{
+    detect_lines(move.first);
+    detect_lines(move.second);
 }
 
 
