@@ -18,7 +18,12 @@ namespace game
     void render_tile(Tile* tile, SDL_Rect output);
     void render_tile_focus_frame(SDL_Rect output);
 
-    bool apply_tile_animation(int x, int y, SDL_Rect& output);
+    bool apply_tile_animation(Point pos,
+                              SDL_Rect& output);
+    bool apply_tile_move_anim(Point pos,
+                              SDL_Rect& output);
+    bool apply_tile_fall_anim(Point pos,
+                              SDL_Rect& output);
 
     extern Point keyboard_focus;
 };
