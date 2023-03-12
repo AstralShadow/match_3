@@ -20,6 +20,9 @@ bool game::can_tile_fall(Point pos)
     }
 
     for(auto foothold : footholds) {
+        if(foothold.y >= board.height - 1)
+            continue;
+
         if(is_tile_empty(foothold))
             return true;
 
