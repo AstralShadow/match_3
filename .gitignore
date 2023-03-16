@@ -2,5 +2,10 @@
 bin/
 .obj/
 .dep/
+
+bin_ems/
+.obj_ems/
+.dep_ems/
+
 tags
 
