@@ -1,5 +1,6 @@
 2022-08-05 create custom event structs timer:0h-15m-0s
 2022-08-05 user input system - link input events with game actions
+2023-02-18 add README.md (building section)
 x 2022-08-04 2022-07-25 add makefile as dependency (so it recompiles on flag changes)
 x 2022-08-04 2022-07-25 link assets dir to bin
 x 2022-08-04 2022-07-25 Restore Q to quit hotkey.
@@ -7,3 +8,4 @@ x 2022-08-04 2022-07-25 fix missing ttf init
 x 2022-08-05 2022-08-05 scene hooking timer:0h-24m-36s
 x 2022-08-06 2022-08-05 event hooking timer:1h-30m-15s
 x 2022-08-06 2022-08-05 scenes
+x 2023-03-17 2023-02-18 add emscripten makefile

@@ -53,7 +53,7 @@ int core::ems_core_loop(double time, void*)
     last += progress;
 
     poll_events();
-    tick(progress);
+    scene_tick(progress);
 
     scene_render();
 
