@@ -3,6 +3,13 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_timer.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/html5.h>
+namespace core {
+    static int ems_core_loop(double, void*);
+}
+#endif
+
 SDL_Window* core::window = nullptr;
 SDL_Renderer* core::renderer = nullptr;
 
@@ -12,6 +19,11 @@ static bool running = false;
 void core::run()
 {
     running = true;
+
+#ifdef __EMSCRIPTEN__
+    emscripten_request_animation_frame_loop
+        (&ems_core_loop, nullptr);
+#else
     u64 last = SDL_GetPerformanceCounter();
     u64 freq = SDL_GetPerformanceFrequency();
     float buffer = 0;
@@ -30,7 +42,24 @@ void core::run()
 
         scene_render();
     }
+#endif
 }
+
+#ifdef __EMSCRIPTEN__
+int core::ems_core_loop(double time, void*)
+{
+    static double last = time;
+    int progress = time - last;
+    last += progress;
+
+    poll_events();
+    tick(progress);
+
+    scene_render();
+
+    return running ? EM_TRUE : EM_FALSE;
+}
+#endif
 
 void core::stop()
 {
