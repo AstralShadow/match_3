@@ -20,12 +20,14 @@ int main(int argc, char** argv)
 
     core::run();
 
+#ifndef __EMSCRIPTEN__
     cout << "Closing "
          << PROJECT_NAME << ' '
          << VERSION_MAJOR << '.'
          << VERSION_MINOR << endl;
 
     core::deinit_core();
+#endif
 
     return 0;
 }

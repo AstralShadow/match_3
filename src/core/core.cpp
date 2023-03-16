@@ -1,10 +1,17 @@
 #include "core/core.hpp"
 #include "core/scene.hpp"
+#include "core/version.hpp"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_timer.h>
 
 #ifdef __EMSCRIPTEN__
+#include "core/init.hpp"
+#include <iostream>
 #include <emscripten/html5.h>
+
+using std::cout;
+using std::endl;
+
 namespace core {
     static int ems_core_loop(double, void*);
 }
@@ -57,7 +64,17 @@ int core::ems_core_loop(double time, void*)
 
     scene_render();
 
-    return running ? EM_TRUE : EM_FALSE;
+    if(running)
+        return EM_TRUE;
+
+    cout << "Closing "
+         << PROJECT_NAME << ' '
+         << VERSION_MAJOR << '.'
+         << VERSION_MINOR << endl;
+
+    core::deinit_core();
+
+    return EM_FALSE;
 }
 #endif
 
