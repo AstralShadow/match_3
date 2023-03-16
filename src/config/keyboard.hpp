@@ -9,7 +9,12 @@ namespace config
 {
     using std::array;
 
-    const u8 keys_select[] {
+    const int max_kb_players = 2;
+    const int kb_player_visibility_time = 15000; // ms
+    const int kb_fade_blinks = 2;
+
+
+    const u8 keys_action[] {
         SDL_SCANCODE_SPACE,
         SDL_SCANCODE_RETURN
     };

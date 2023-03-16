@@ -1,4 +1,5 @@
 #include "game/render.hpp"
+#include "game/keyboard.hpp"
 #include "game/tile.hpp"
 #include "game/tile_lines.hpp"
 #include "game/board.hpp"
@@ -43,7 +44,10 @@ void game::set_color(Tile* tile)
 }
 
 
-void game::render_tile_focus_frame(SDL_Rect output)
+void game::
+render_tile_focus_frame(SDL_Rect output,
+                        KBPlayer const& kb_data,
+                        u8 opacity)
 {
     int weight = 3;
 
@@ -76,9 +80,17 @@ void game::render_tile_focus_frame(SDL_Rect output)
     };
 
 
-    SDL_SetRenderDrawColor(rnd, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(rnd, 0, 0, 0, opacity);
+    SDL_SetRenderDrawBlendMode(rnd, SDL_BLENDMODE_BLEND);
+
     SDL_RenderFillRect(rnd, &line_top);
     SDL_RenderFillRect(rnd, &line_bottom);
     SDL_RenderFillRect(rnd, &line_left);
     SDL_RenderFillRect(rnd, &line_right);
+
+    switch(kb_data.state) {
+        
+    }
+
+    SDL_SetRenderDrawBlendMode(rnd, SDL_BLENDMODE_NONE);
 }
