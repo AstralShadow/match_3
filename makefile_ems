@@ -1,6 +1,6 @@
-NAME=game.js
+NAME=match_3.js
 VERSION_MAJOR=0
-VERSION_MINOR=0
+VERSION_MINOR=1
 
 CXX=em++
 LD=em++
