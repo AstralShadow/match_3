@@ -16,6 +16,8 @@ namespace game
     // Transforms pixels to tile pos
     Point get_board_pos(int x, int y);
 
+    void render_resize();
+
     void render_board();
     void render_tile(Tile* tile, SDL_Rect output);
     void render_tile_focus_frame(SDL_Rect output,
