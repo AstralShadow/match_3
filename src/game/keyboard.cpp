@@ -11,6 +11,12 @@
 using std::cout;
 using std::endl;
 
+using config::keys_action;
+using config::keys_left;
+using config::keys_right;
+using config::keys_up;
+using config::keys_down;
+
 
 template<const u8* keys, size_t count >
 void when_key(u8 scancode, void (*callback)(int))
@@ -48,8 +54,6 @@ void game::keydown(SDL_KeyboardEvent& ev, scene_uid)
     if(scancode == SDL_SCANCODE_Q)
         core::stop();
 
-    using namespace config;
-
 #define _when_key(X) \
     when_key<X, sizeof(X) / sizeof(X[0])>
 
@@ -81,39 +85,75 @@ void game::kb_fix_focus(int _player)
 }
 
 
-void game::kb_move_left(int player)
+void game::kb_move_left(int _player)
 {
-    kb_move_by(player, -1, 0);
+    auto const& player = kb_players[_player];
+    if(player.state != KB_FOCUS_DIAGONAL) {
+        kb_move_by(_player, -1, 0);
+    } else {
+        const u8* keys = SDL_GetKeyboardState(nullptr);
+        if(keys[keys_up[_player]])
+            kb_move_by(_player, -1, -1);
+        else if(keys[keys_down[_player]])
+            kb_move_by(_player, -1, 1);
+    }
     
     if(print_log)
-        cout << "keyboard[" << player << "]: left"
+        cout << "keyboard[" << _player << "]: left"
              << endl;
 }
 
-void game::kb_move_right(int player)
+void game::kb_move_right(int _player)
 {
-    kb_move_by(player, 1, 0);
+    auto const& player = kb_players[_player];
+    if(player.state != KB_FOCUS_DIAGONAL) {
+        kb_move_by(_player, 1, 0);
+    } else {
+        const u8* keys = SDL_GetKeyboardState(nullptr);
+        if(keys[keys_up[_player]])
+            kb_move_by(_player, 1, -1);
+        else if(keys[keys_down[_player]])
+            kb_move_by(_player, 1, 1);
+    }
     
     if(print_log)
-        cout << "keyboard[" << player << "]: right"
+        cout << "keyboard[" << _player << "]: right"
              << endl;
 }
 
-void game::kb_move_up(int player)
+void game::kb_move_up(int _player)
 {
-    kb_move_by(player, 0, -1);
+    auto const& player = kb_players[_player];
+    if(player.state != KB_FOCUS_DIAGONAL) {
+        kb_move_by(_player, 0, -1);
+    } else {
+        const u8* keys = SDL_GetKeyboardState(nullptr);
+        if(keys[keys_left[_player]])
+            kb_move_by(_player, -1, -1);
+        else if(keys[keys_right[_player]])
+            kb_move_by(_player, 1, -1);
+    }
     
     if(print_log)
-        cout << "keyboard[" << player << "]: up"
+        cout << "keyboard[" << _player << "]: up"
              << endl;
 }
 
-void game::kb_move_down(int player)
+void game::kb_move_down(int _player)
 {
-    kb_move_by(player, 0, 1);
+    auto const& player = kb_players[_player];
+    if(player.state != KB_FOCUS_DIAGONAL) {
+        kb_move_by(_player, 0, 1);
+    } else {
+        const u8* keys = SDL_GetKeyboardState(nullptr);
+        if(keys[keys_left[_player]])
+            kb_move_by(_player, -1, 1);
+        else if(keys[keys_right[_player]])
+            kb_move_by(_player, 1, 1);
+    }
 
     if(print_log)
-        cout << "keyboard[" << player << "]: down"
+        cout << "keyboard[" << _player << "]: down"
              << endl;
 }
 
@@ -149,6 +189,7 @@ void game::kb_move_by(int _player, int dx, int dy)
             break;
         }
 
+        case KB_FOCUS_DIAGONAL:
         case KB_FOCUS: {
             move_t move {player.pos, player.pos};
 
@@ -161,10 +202,6 @@ void game::kb_move_by(int _player, int dx, int dy)
             input_queue.push(move);
 
             break;
-        }
-
-        case KB_FOCUS_DIAGONAL: {
-            
         }
 
     }

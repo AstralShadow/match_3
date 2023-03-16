@@ -28,12 +28,13 @@ void game::render_board()
             tile_size.y
         };
 
+        auto const output_frame = output;
+
         bool modified_position =
             apply_tile_animation({x, y}, output);
 
         render_tile(tile, output);
 
-        if(!modified_position)
         for(auto const& player : kb_players) {
             auto vtime = player.visibility_time;
             if(vtime < 1)
@@ -50,7 +51,8 @@ void game::render_board()
             }
 
             if(player.pos.x == x && player.pos.y == y) {
-                render_tile_focus_frame(output, player,
+                render_tile_focus_frame(output_frame,
+                                        player,
                                         255 * opacity);
                 break; 
             }
