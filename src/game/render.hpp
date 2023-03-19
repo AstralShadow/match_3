@@ -20,9 +20,12 @@ namespace game
 
     void render_board();
     void render_tile(Tile* tile, SDL_Rect output);
+    void render_board_overlay();
     void render_tile_focus_frame(SDL_Rect output,
                                  KBPlayer const&,
                                  u8 opacity = 255);
+    void render_tile_focus_arrows(SDL_Rect output);
+    void render_tile_focus_diagonals(SDL_Rect output);
 
     bool apply_tile_animation(Point pos,
                               SDL_Rect& output);

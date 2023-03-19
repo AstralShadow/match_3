@@ -7,11 +7,6 @@
 
 void game::render_board()
 {
-    using config::kb_player_visibility_time;
-    using config::kb_fade_blinks;
-    auto const kb_max_vtime = kb_player_visibility_time;
-
-
     Point tile_size {
         board_area.w / board.width,
         board_area.h / board.height
@@ -28,12 +23,34 @@ void game::render_board()
             tile_size.y
         };
 
-        auto const output_frame = output;
-
-        bool modified_position =
-            apply_tile_animation({x, y}, output);
+        apply_tile_animation({x, y}, output);
 
         render_tile(tile, output);
+    }
+
+    render_board_overlay();
+}
+
+void game::render_board_overlay()
+{
+    using config::kb_player_visibility_time;
+    using config::kb_fade_blinks;
+    auto const kb_max_vtime = kb_player_visibility_time;
+
+
+    Point tile_size {
+        board_area.w / board.width,
+        board_area.h / board.height
+    };
+
+    for(int y = 0; y < board.height; y++)
+    for(int x = 0; x < board.width; x++) {
+        SDL_Rect output {
+            board_area.x + tile_size.x * x,
+            board_area.y + tile_size.y * y,
+            tile_size.x,
+            tile_size.y
+        };
 
         for(auto const& player : kb_players) {
             auto vtime = player.visibility_time;
@@ -51,12 +68,13 @@ void game::render_board()
             }
 
             if(player.pos.x == x && player.pos.y == y) {
-                render_tile_focus_frame(output_frame,
+                render_tile_focus_frame(output,
                                         player,
                                         255 * opacity);
                 break; 
             }
         }
     }
+
 }
 
