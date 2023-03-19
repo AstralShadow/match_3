@@ -5,7 +5,13 @@
 #include "game/board.hpp"
 #include "game/colors.hpp"
 #include "core/core.hpp"
+#include "utils/pi.hpp"
+#include "config/keyboard.hpp"
 #include <SDL2/SDL_render.h>
+#include <memory>
+#include <iostream>
+using std::cout;
+using std::endl;
 
 using game::Tile;
 
@@ -58,46 +64,33 @@ render_tile_focus_frame(SDL_Rect output,
     SDL_RenderFillRect(rnd, &line_left);
     SDL_RenderFillRect(rnd, &line_right);
 
-    switch(kb_data.state) {
-        case KB_IDLE:
-            break;
-        case KB_FOCUS:
-            render_tile_focus_arrows(output);
-            break;
-        case KB_FOCUS_DIAGONAL:
-            render_tile_focus_diagonals(output);
-            break;
-    }
+
+    if(kb_data.state != KB_IDLE)
+        render_tile_focus_arrows(output, kb_data);
 
     SDL_SetRenderDrawBlendMode
         (rnd, SDL_BLENDMODE_NONE);
 }
 
-#include <thread>
-#include <chrono>
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 void game::
-render_tile_focus_arrows(SDL_Rect output)
+render_tile_focus_arrows(SDL_Rect output,
+                         KBPlayer const& kb_data)
 {
     const int arrow_fraction = 5;
-    const int line_width = 2;
 
-    Point size {
-        output.w / arrow_fraction,
-        output.h / arrow_fraction
+    FPoint size {
+        1.0f * output.w / arrow_fraction,
+        1.0f * output.h / arrow_fraction
     };
 
-    Point center {
-        output.x + output.w / 2,
-        output.y + output.h / 2
+    FPoint center {
+        output.x + output.w / 2.0f,
+        output.y + output.h / 2.0f
     };
 
+    /* Hard code triangle vertices */
     const int group_size = 4;
-    Point vertices[] { Point
+    FPoint vertices[] { FPoint
         /* Left */
         {output.x - size.x, center.y},
         {output.x - size.x / 2, center.y + size.x / 2},
@@ -113,6 +106,8 @@ render_tile_focus_arrows(SDL_Rect output)
         /* Right */ {}, {}, {}, {},
         /* Bottom */ {}, {}, {}, {},
     };
+    u32 vertices_count = (sizeof(vertices)
+                          / sizeof(vertices[0]));
 
     /* Reflecting left & top to right & bottom */
     for(int i = 0; i < group_size * 2; i++) {
@@ -122,39 +117,52 @@ render_tile_focus_arrows(SDL_Rect output)
         second[i].y = 2 * center.y - first[i].y;
     }
 
-    int groups = (sizeof(vertices)
-                  / sizeof(vertices[0])) / group_size;
-    for(int g = 0; g < groups; g++) {
-        auto first = vertices + g * group_size;
+    /* Rotate diagonals */
+    if(kb_data.state == KB_FOCUS_DIAGONAL) {
+        float angle = -pi_f() / 4;
+        float scale = sqrt(2);
 
-        for(int i = 0; i < line_width; i++) {
-            SDL_RenderDrawLines(rnd, first, group_size);
+        int time = config::kb_player_visibility_time
+                   - kb_data.visibility_time;
+        int rtime = config::kb_diagonal_rotation_time;
+        if(time < rtime) {
+            angle = angle * time / rtime;
+            scale = 1 + (scale - 1) * time / rtime;
+        }
 
-            Point mid {0, 0};
-            for(int i = 0; i < group_size; i++) {
-                mid.x += first[i].x;
-                mid.y += first[i].y;
-            }
-            mid.x /= group_size;
-            mid.y /= group_size;
+        for(u32 i = 0; i < vertices_count; i++) {
+            FPoint delta {
+                vertices[i].x - center.x,
+                vertices[i].y - center.y
+            };
 
-            for(int i = 0; i < group_size; i++) {
-                if(first[i].x < mid.x)
-                    first[i].x++;
-                if(first[i].x > mid.x)
-                    first[i].x--;
-                if(first[i].y < mid.y)
-                    first[i].y++;
-                if(first[i].y > mid.y)
-                    first[i].y--;
-            }
+            auto _angle = atan2(delta.y, delta.x);
+            auto _dist = hypot(delta.y, delta.x);
+
+            _angle += angle;
+            _dist *= scale;
+
+            vertices[i] = {
+                cos(_angle) * _dist,
+                sin(_angle) * _dist
+            };
+            vertices[i].x += center.x;
+            vertices[i].y += center.y;
         }
     }
-}
 
-void game::
-render_tile_focus_diagonals(SDL_Rect output)
-{
 
+    int groups = vertices_count / group_size;
+    for(int g = 0; g < groups; g++) {
+        auto first = vertices + g * group_size;
+        Point points[group_size];
+        for(int i = 0; i < group_size; i++)
+            points[i] = {
+                static_cast<int>(first[i].x),
+                static_cast<int>(first[i].y)
+            };
+
+        SDL_RenderDrawLines(rnd, points, group_size);
+    }
 }
 

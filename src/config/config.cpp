@@ -22,3 +22,9 @@ int config::fall_delay = 500;
 float config::fall_delay_factor = 0.15;
 
 
+#include "config/keyboard.hpp"
+
+/* Animations (ms) */
+int config::kb_player_visibility_time = 15000;
+int config::kb_diagonal_rotation_time = 150;
+

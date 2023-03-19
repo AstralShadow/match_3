@@ -18,7 +18,7 @@ namespace game
         Point pos {0, 0};
         KBState state = KB_IDLE;
 
-        i32 visibility_time = 0;
+        int visibility_time = 0;
     };
 
     extern KBPlayer kb_players[config::max_kb_players];

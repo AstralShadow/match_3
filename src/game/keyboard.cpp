@@ -23,8 +23,15 @@ void when_key(u8 scancode, void (*callback)(int))
 {
     for(size_t i = 0; i < count; i++)
         if(keys[i] == scancode) {
+            auto state = game::kb_players[i].state;
+
             game::kb_players[i].visibility_time
                 = config::kb_player_visibility_time;
+
+            // Skip rotation animations when empty pess
+            if(state == game::KB_FOCUS_DIAGONAL)
+                game::kb_players[i].visibility_time
+                    -= config::kb_diagonal_rotation_time;
 
             callback(i);
             return;

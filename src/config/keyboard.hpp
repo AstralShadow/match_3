@@ -9,10 +9,16 @@ namespace config
 {
     using std::array;
 
+    // Array size for player controls
     const int max_kb_players = 2;
-    const int kb_player_visibility_time = 15000; // ms
+
+    // Determines time before hiding keyboard player
+    extern int kb_player_visibility_time;
+
+    // Determines blinks while hiding keyboard player
     const int kb_fade_blinks = 2;
 
+    extern int kb_diagonal_rotation_time;
 
     const u8 keys_action[] {
         SDL_SCANCODE_SPACE,
