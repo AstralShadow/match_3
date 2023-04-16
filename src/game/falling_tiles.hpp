@@ -24,6 +24,12 @@ namespace game
     bool is_tile_falling(Point pos);
     bool can_tile_fall(Point pos);
 
+    int count_falling_tiles();
+    inline int count_falling_lines()
+    {
+        return falling_tiles.size();
+    }
+
     void process_falling_tiles(int);
     void process_falling_tiles_progress(int);
     void process_falling_tiles_activation(int);

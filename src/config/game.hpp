@@ -44,6 +44,22 @@ namespace config
     // What part of the fall duration a tile waits
     //  before activating it's own fall animation
     extern float fall_delay_factor;
+
+
+    // Make falling slower because it's hard to follow
+    //  when too much stuff falls
+    extern bool slower_massive_falls; // TODO implement
+    // TODO slow down diagonal falling
+
+    // Calculate for lines instead of tiles.
+    // Should feel more natural as single 3-tile match
+    //  speed shouldn't depend on vertical position.
+    extern bool slower_massive_falls_based_on_lines;
+
+    // How much should all falling tiles slow down
+    //  per falling tile
+    extern float slowness_per_falling_tile;
+
 }
 
 #endif // INCLUDE_CONFIG_GAME_HPP

@@ -17,9 +17,13 @@ bool config::falling_only_when_board_idle = false;
 /* Animations (ms) */
 int config::move_duration = 120;
 int config::break_duration = 200;
-int config::fall_duration = 350;
+int config::fall_duration = 250;
 int config::fall_delay = 500;
 float config::fall_delay_factor = 0.15;
+
+bool config::slower_massive_falls = true;
+bool config::slower_massive_falls_based_on_lines = false;
+float config::slowness_per_falling_tile = 0.003;
 
 
 #include "config/keyboard.hpp"

@@ -50,6 +50,16 @@ void game::process_falling_tiles_progress(int ms)
 {
     float time = ms * 1.0f / config::fall_duration;
 
+    if(config::slower_massive_falls) {
+        int count;
+        if(config::slower_massive_falls_based_on_lines)
+            count = count_falling_lines();
+        else
+            count = count_falling_tiles();
+        auto rate = config::slowness_per_falling_tile;
+        time *= 1.0f - count * rate;
+    }
+
     // Store size in variable so any reappended
     //  elements don't get iterated
     u32 size = falling_tiles.size();
