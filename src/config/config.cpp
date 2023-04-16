@@ -2,6 +2,7 @@
 
 bool config::quick_draw = false;
 // TODO make diagonals possible when quick_draw = true
+// maybe just use different mouse key for quick_draw
 
 
 #include "config/game.hpp"

@@ -11,13 +11,15 @@
 
  * Detect lines of 3+ tiles [ok]
   * Store and apply them after finding all of them [ok]
+ * Detect potential lines of 3+ tiles
 
  * Mouse controls [ok]
   * Quick-draw controls [ok]
   * Diagonal quick-draw controls
  * Keyboard controls [ok]
   * Diagonal keyboard controls
- * Touch controls
+ * Touch controls [ok]
+  * Multitouch controls
 
  * Bonuses
  * Locked Tiles
@@ -32,7 +34,7 @@
  * Readme
 
 # Building/Testing
- * Emscripten
- * Windows
+ * Emscripten [ok]
  * Github tasks [ok]
+ * Windows
 
