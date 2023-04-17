@@ -13,18 +13,18 @@ CONFIG = -D CORE_CONFIG \
 	-D WINDOW_HEIGHT=600 \
 	-D VERBOSE_UNHANDLED_EVENTS \
 	-D USE_ESDF \
-	#-D USE_SDL2_IMAGE \
-	#-D USE_SDL2_NET \
-	#-D USE_SDL2_TTF
+	-D USE_SDL2_TTF \
+	#-D USE_SDL2_IMAGE
+	#-D USE_SDL2_NET
 
 __CXXFLAGS=-Og -g -std=c++17 \
 	-Wall -Wextra -pedantic \
 	-lSDL2 \
-	#-lSDL2_image \
-	#-lSDL2_ttf \
-	#-lSDL2_mixer \
-	#-lSDL2_net \
-	#-pthread \
+	-lSDL2_ttf \
+	#-lSDL2_image
+	#-lSDL2_mixer
+	#-lSDL2_net
+	#-pthread
 	#
 
 LDFLAGS = ${__CXXFLAGS} \
