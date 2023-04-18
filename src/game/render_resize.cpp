@@ -21,7 +21,7 @@ namespace game
 {
     SDL_Rect board_area { 200, 0, 600, 600 };
 
-    static Point screen;
+    Point screen;
 }
 
 

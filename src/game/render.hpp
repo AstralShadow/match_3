@@ -10,6 +10,7 @@ namespace game
     struct Tile;
     struct KBPlayer;
 
+    extern Point screen;
     extern SDL_Rect board_area;
 
 
