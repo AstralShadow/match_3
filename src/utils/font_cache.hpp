@@ -42,7 +42,7 @@ namespace utils
     };
 
 
-    FontCache* create_cache();
+    FontCache* create_font_cache();
 
     // Loads a font if not in cache, else uses cache.
     // Stores the font in cache.

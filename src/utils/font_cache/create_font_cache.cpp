@@ -2,7 +2,7 @@
 #include "utils/font_cache/internal.hpp"
 
 
-FontCache* utils::create_cache()
+FontCache* utils::create_font_cache()
 {
     return new FontCache();
 }
