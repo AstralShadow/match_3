@@ -25,8 +25,11 @@ FontCacheEntry* utils::load_font(FontCache* cache,
         return nullptr;
     }
 
-    cache_trim(cache);
-    cache_trim_one(cache);
+    if(cache->entries.size() >= cache->max_cache_size) {
+        cache_trim(cache);
+        cache_trim_one(cache);
+    }
+
     cache->entries.push_back(entry);
     size_t pos = cache->entries.size() - 1;
     return &*(cache->entries.begin() + pos);
