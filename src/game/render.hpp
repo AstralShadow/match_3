@@ -33,6 +33,9 @@ namespace game
                               SDL_Rect& output);
     bool apply_tile_fall_anim(Point pos,
                               SDL_Rect& output);
+
+
+    void render_version_tag();
 };
 
 #endif // INCLUDE_GAME_RENDER_HPP

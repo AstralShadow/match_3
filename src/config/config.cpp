@@ -33,3 +33,8 @@ float config::slowness_per_falling_tile = 0.003;
 int config::kb_player_visibility_time = 15000;
 int config::kb_diagonal_rotation_time = 150;
 
+
+#include "graphics.hpp"
+
+bool config::display_version_tag = true;
+
