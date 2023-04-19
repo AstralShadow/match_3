@@ -82,6 +82,18 @@ void game::finish_failed_move(move_t move)
 }
 
 
+bool game::operator < (const move_t a,
+                       const move_t b)
+{
+    if(a.sequence != b.sequence)
+        return a.sequence < b.sequence;
+
+    if(a.first != b.first)
+        return a.first < b.first;
+
+    return a.second < b.second;
+}
+
 bool operator < (const Point a,
                  const Point b)
 {
@@ -89,3 +101,4 @@ bool operator < (const Point a,
         return a.x < b.x;
     return a.y < b.y;
 }
+

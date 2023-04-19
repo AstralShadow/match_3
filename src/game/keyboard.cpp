@@ -198,7 +198,10 @@ void game::kb_move_by(int _player, int dx, int dy)
 
         case KB_FOCUS_DIAGONAL:
         case KB_FOCUS: {
-            move_t move {player.pos, player.pos};
+            move_t move {
+                player.pos, player.pos,
+                &line_sequences[_player]
+            };
 
             player.pos.y += dy;
             player.pos.x += dx;
@@ -206,7 +209,7 @@ void game::kb_move_by(int _player, int dx, int dy)
 
             move.second = player.pos;
             validate_move(move);
-            input_queue.push(move);
+            equeue_move(move);
 
             break;
         }

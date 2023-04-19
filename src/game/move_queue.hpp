@@ -4,6 +4,7 @@
 #include <queue>
 #include <map>
 #include "utils/point.hpp"
+#include "game/line_sequence.hpp"
 
 namespace game
 {
@@ -11,7 +12,12 @@ namespace game
     using std::queue;
     using std::map;
 
-    typedef pair<Point, Point> move_t;
+    struct move_t
+    {
+        Point first, second;
+        LineSequence* sequence = nullptr;
+    };
+
     extern queue<move_t> input_queue;
 
     // stores active moves and animation
@@ -24,8 +30,11 @@ namespace game
     extern map<move_t, float> // [1,0]
         failed_moves;
 
+
+    void equeue_move(move_t);
+
     // Converts a move to the
-    //  closest valid move
+    //  closest valid simple move
     void validate_move(move_t&);
 
     void process_moves(int);
@@ -35,9 +44,12 @@ namespace game
 
     bool is_tile_moving(Point);
 
+    bool operator < (const move_t a,
+                     const move_t b);
 };
 
 bool operator < (const Point a,
                  const Point b);
+
 
 #endif // INCLUDE_GAME_MOVE_QUEUE_HPP

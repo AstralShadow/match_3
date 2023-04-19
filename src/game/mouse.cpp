@@ -4,6 +4,7 @@
 #include "game/render.hpp"
 #include "game/board.hpp"
 #include "game/move_queue.hpp"
+#include "game/line_sequence.hpp"
 #include "config/controls.hpp"
 #include <SDL2/SDL_events.h>
 #include <iostream>
@@ -40,13 +41,19 @@ void game::mouseup(ButtonEv& ev, scene_uid)
 {
     if(!pending_move)
         return;
+
     Point pos = get_board_pos(ev.x, ev.y);
 
-    move_t move {mouse_focus, pos};
+    move_t move {
+        mouse_focus, pos,
+        &line_sequences[sequences_count - 1]
+    };
     validate_move(move);
-    pos = move.second;
-    input_queue.push(move);
+    equeue_move(move);
+
     pending_move = false;
+
+    pos = move.second;
     if(print_log)
         cout << "Move to " << pos.x
              << "x" << pos.y << endl;
@@ -57,13 +64,19 @@ void game::mouse_motion(MotionEv& ev,
 {
     if(!pending_move || !config::quick_draw)
         return;
+
     Point pos = get_board_pos(ev.x, ev.y);
     if(pos.x != mouse_focus.x || pos.y != mouse_focus.y) {
-        move_t move = {mouse_focus, pos};
+        move_t move = {
+            mouse_focus, pos,
+            &line_sequences[sequences_count - 1]
+        };
         validate_move(move);
-        pos = move.second;
-        input_queue.push(move);
+        equeue_move(move);
+
         pending_move = false;
+
+        pos = move.second;
         if(print_log)
             cout << "Move to " << pos.x
                  << "x" << pos.y << endl;
