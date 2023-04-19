@@ -2,6 +2,7 @@
 #define INCLUDE_GAME_LINE_HPP
 
 #include <vector>
+#include "utils/point.hpp"
 
 namespace game
 {

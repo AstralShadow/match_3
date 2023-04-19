@@ -1,5 +1,5 @@
-#ifndef INCLUDE_KEYBOARD_HPP
-#define INCLUDE_KEYBOARD_HPP
+#ifndef INCLUDE_GAME_KEYBOARD_HPP
+#define INCLUDE_GAME_KEYBOARD_HPP
 
 #include "config/keyboard.hpp"
 #include "utils/point.hpp"
@@ -26,4 +26,4 @@ namespace game
     void fade_unused_keyboard_players(int ms);
 }
 
-#endif // INCLUDE_KEYBOARD_HPP
+#endif // INCLUDE_GAME_KEYBOARD_HPP
