@@ -1,40 +1,45 @@
 # Base mechanics
- * Game Board [ok]
-  * Resizeable game board
+[x] Game Board
+    [ ] Resizeable game board
 
- * Tile Generation [ok]
-  * Limited tile generation
- * Tile Gravity [ok]
+[x] Tile Generation
+    [ ] Limited tile generation
+[x] Tile Gravity
+[x] Tile Swapping
+    [x] Animation
 
- * Tile Swapping [ok]
-  * Animation [ok]
+[x] Detect lines of 3+ tiles
+    [x] Store and apply them after finding all of them
+[ ] Detect potential lines of 3+ tiles
 
- * Detect lines of 3+ tiles [ok]
-  * Store and apply them after finding all of them [ok]
- * Detect potential lines of 3+ tiles
+[x] Mouse controls
+    [x] Quick-draw controls
+    [ ] Diagonal quick-draw controls
+[x] Keyboard controls
+    [x] Diagonal keyboard controls
+[x] Touch controls
+    [ ] Multitouch controls
 
- * Mouse controls [ok]
-  * Quick-draw controls [ok]
-  * Diagonal quick-draw controls
- * Keyboard controls [ok]
-  * Diagonal keyboard controls
- * Touch controls [ok]
-  * Multitouch controls
+[ ] Line sequence per player
 
- * Bonuses
- * Locked Tiles
- * Score bars
-  * Currency
+[ ] Bonuses
+[ ] Locked Tiles
+[ ] Score bars
+[ ] Currency
 
- * Bots
- * Configuration [ok]
-  * Purchasable configuration modifications
+[ ] Bots
+
+[x] Configuration
+    [ ] User Interface
+    [ ] Upgrade shop
+
 
 # Documentation
- * Readme
+[ ] Readme
+
 
 # Building/Testing
- * Emscripten [ok]
- * Github tasks [ok]
- * Windows
+[x] Emscripten
+[x] GitHub tasks
+[ ] Windows
 
