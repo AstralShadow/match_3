@@ -42,15 +42,15 @@ void game::render_version_tag()
 
 VersionTag game::get_version_tag()
 {
-    auto font = get_font(FT_DEBUG);
-    SDL_Color white {255, 255, 255, 255};
+    auto font = get_font(FT_DEBUG, 24);
+    SDL_Color color {0, 0, 0, 255};
 
     string text;
     text += 'v' + std::to_string(VERSION_MAJOR);
-    text += "." + std::to_string(VERSION_MAJOR);
+    text += "." + std::to_string(VERSION_MINOR);
 
     auto surface = TTF_RenderUTF8_Blended
-        (font, text.c_str(), white);
+        (font, text.c_str(), color);
 
     if(!surface) {
         cout << "Failed rendering version tag." << endl;
