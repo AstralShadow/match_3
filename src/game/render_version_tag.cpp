@@ -30,8 +30,8 @@ void game::render_version_tag()
     static auto tag = get_version_tag();
 
     SDL_Rect dest {
-        screen.x - tag.width,
-        screen.y - tag.height,
+        board_area.x + board_area.w - tag.width - 4,
+        board_area.y + board_area.h - tag.height,
         tag.width,
         tag.height
     };
