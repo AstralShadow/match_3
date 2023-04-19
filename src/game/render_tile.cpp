@@ -1,7 +1,7 @@
 #include "game/render.hpp"
 #include "game/keyboard.hpp"
 #include "game/tile.hpp"
-#include "game/tile_lines.hpp"
+#include "game/line_animation.hpp"
 #include "game/board.hpp"
 #include "game/colors.hpp"
 #include "core/core.hpp"
@@ -34,10 +34,10 @@ void game::set_color(Tile* tile)
     auto color = game::colors[tile->color];
 
     Point pos = get_tile_pos(tile);
-    float break_progress = get_tile_line_progress(pos);
-    color.r *= 1 - break_progress;
-    color.g *= 1 - break_progress;
-    color.b *= 1 - break_progress;
+    float broken = get_line_animation_progress(pos);
+    color.r *= 1 - broken;
+    color.g *= 1 - broken;
+    color.b *= 1 - broken;
 
     SDL_SetRenderDrawColor(rnd,
         color.r, color.g, color.b, 255);

@@ -1,7 +1,7 @@
 #include "game/render.hpp"
 #include "game/keyboard.hpp"
 #include "game/tile.hpp"
-#include "game/tile_lines.hpp"
+#include "game/line_animation.hpp"
 #include "game/board.hpp"
 #include "game/colors.hpp"
 #include "core/core.hpp"

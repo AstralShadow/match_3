@@ -1,6 +1,6 @@
 #include "game/falling_tiles.hpp"
 #include "game/board.hpp"
-#include "game/tile_lines.hpp"
+#include "game/line_animation.hpp"
 #include "config/game.hpp"
 
 namespace game

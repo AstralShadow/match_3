@@ -1,5 +1,5 @@
 #include "game/move_queue.hpp"
-#include "game/tile_lines.hpp"
+#include "game/line_animation.hpp"
 #include "game/board.hpp"
 #include "config/game.hpp"
 

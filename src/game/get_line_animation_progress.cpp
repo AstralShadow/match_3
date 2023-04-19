@@ -3,21 +3,16 @@
 using std::vector;
 
 
-namespace game
+float game::get_line_animation_progress(Point target)
 {
-    vector<LineAnimationData> break_animation;
-}
-
-
-bool game::is_tile_in_line(Point target)
-{
+    float highest = 0;
     for(auto const& data : break_animation) {
-        if(data.progress > 0)
+        if(data.progress > highest)
             for(auto const other : data.line)
                 if(other == target)
-                    return true;
+                    highest = data.progress;
     }
 
-    return false;
+    return highest;
 }
 
