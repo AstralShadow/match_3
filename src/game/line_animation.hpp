@@ -25,7 +25,7 @@ namespace game
 
     // Detects and stores new lines.
     // Returns true if a line is found and stored
-    bool detect_lines(Point);
+    bool detect_lines(Point, LineSequence* = nullptr);
 
     bool is_tile_in_line(Point);
     float get_line_animation_progress(Point);

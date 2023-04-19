@@ -10,20 +10,21 @@ namespace game
 {
     static bool check_direction(Point pos,
                                 Point direction,
+                                LineSequence*,
                                 size_t min_count = 3);
 }
 
 
-bool game::detect_lines(Point pos)
+bool game::detect_lines(Point pos, LineSequence* seq)
 {
     bool success = false;
     for(auto direction : {Point{0, 1}, {1, 0}})
-        success = check_direction(pos, direction)
+        success = check_direction(pos, direction, seq)
             || success;
 
     if(config::detect_diagonal_lines)
     for(auto direction : {Point{1, 1}, {1, -1}})
-        success = check_direction(pos, direction)
+        success = check_direction(pos, direction, seq)
             || success;
 
     return success;
@@ -31,6 +32,7 @@ bool game::detect_lines(Point pos)
 
 bool game::check_direction(Point pos,
                            Point direction,
+                           LineSequence* sequence,
                            size_t min_count)
 {
     vector<Point> line {pos};
@@ -65,7 +67,7 @@ bool game::check_direction(Point pos,
     if(line.size() < min_count)
         return false;
 
-    break_animation.push_back({line});
+    break_animation.push_back({line, sequence});
     return true;
 }
 

@@ -66,8 +66,8 @@ void game::finish_move(move_t move)
     auto t2 = get_tile(dst.x, dst.y);
     std::swap(*t1, *t2);
 
-    bool line = detect_lines(src);
-    line = detect_lines(dst) || line;
+    bool line = detect_lines(src, move.sequence);
+    line = detect_lines(dst, move.sequence) || line;
 
     if(!config::permit_free_moves && !line) {
         std::swap(*t1, *t2);
