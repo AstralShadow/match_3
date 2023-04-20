@@ -1,4 +1,8 @@
 #include "game/line_sequence.hpp"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 namespace game
 {
@@ -22,6 +26,11 @@ void game::sequence_append(Line const& line,
 
         for(u32 i = 0; i < sequences_count; ++i)
             detect_special_sequence(&line_sequences[i]);
+    }
+
+    if(log_sequences_to_stdout) {
+        cout << "Chain reaction size: ";
+        cout << chain_reactions.size() << endl;
     }
 }
 

@@ -16,11 +16,12 @@ namespace game
     };
 
     // Last sequence is for mouse/touchscreen input
-    const u32 sequences_count
-        = config::max_kb_players + 1;
-
+    const u32 sequences_count = 1 + config::max_kb_players;
     extern LineSequence line_sequences[sequences_count];
     extern vector<Line> chain_reactions;
+
+
+    const bool log_sequences_to_stdout = false;
 
 
     void sequence_append(Line const&,
