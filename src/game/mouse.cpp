@@ -5,6 +5,7 @@
 #include "game/board.hpp"
 #include "game/move_queue.hpp"
 #include "game/line_sequence.hpp"
+#include "game/skills/beam.hpp"
 #include "config/controls.hpp"
 #include <SDL2/SDL_events.h>
 
@@ -39,7 +40,13 @@ void game::mouseup(ButtonEv& ev, scene_uid)
         &line_sequences[sequences_count - 1]
     };
     validate_move(move);
-    equeue_move(move);
+    if(ev.button == SDL_BUTTON_LEFT) {
+        equeue_move(move);
+    } else if (ev.button == SDL_BUTTON_RIGHT) {
+        active_skills.push_back(std::make_unique
+            <Beam>(move.first,
+                   move.second - move.first));
+    }
 
     pending_move = false;
 }
@@ -57,7 +64,13 @@ void game::mouse_motion(MotionEv& ev,
             &line_sequences[sequences_count - 1]
         };
         validate_move(move);
-        equeue_move(move);
+        if(ev.state & SDL_BUTTON_LMASK) {
+            equeue_move(move);
+        } else if (ev.state & SDL_BUTTON_RMASK) {
+            active_skills.push_back(std::make_unique
+                <Beam>(move.first,
+                       move.second - move.first));
+        }
 
         pending_move = false;
     }
