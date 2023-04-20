@@ -24,6 +24,9 @@ bool game::is_tile_in_use(Point pos, u32 ignore)
         if(is_tile_falling(pos))
             return true;
 
+    if(!(ignore && CHK_IGNORE_LOCKED))
+        if(is_tile_locked(pos))
+            return true;
 
     return false;
 }
