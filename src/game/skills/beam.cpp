@@ -97,8 +97,8 @@ bool Beam::is_locked(Point tile)
 
         int p = tile_progress[i];
         // TODO decide on one of these return statements
-        return p < break_duration;
-        //return (p >= 0 && p < break_duration);
+        //return p < break_duration;
+        return (p >= 0 && p < break_duration);
     }
 
     return false;
