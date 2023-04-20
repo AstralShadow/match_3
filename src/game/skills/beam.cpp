@@ -46,10 +46,8 @@ void Beam::find_targets()
     int i = 1;
     Point next = pos + direction;
     while(get_tile(next)) {
-        if(!is_tile_in_use(next, CHK_IGNORE_LOCKED)) {
-            tiles.push_back(next);
-            tile_progress.push_back(-motion_delay * i);
-        }
+        tiles.push_back(next);
+        tile_progress.push_back(-motion_delay * i);
         i++;
         next = next + direction;
     }
@@ -57,10 +55,8 @@ void Beam::find_targets()
     i = 1;
     next = pos - direction;
     while(get_tile(next)) {
-        if(!is_tile_in_use(next, CHK_IGNORE_LOCKED)) {
-            tiles.push_back(next);
-            tile_progress.push_back(-motion_delay * i);
-        }
+        tiles.push_back(next);
+        tile_progress.push_back(-motion_delay * i);
         i++;
         next = next - direction;
     }
