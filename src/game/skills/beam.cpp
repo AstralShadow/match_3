@@ -4,7 +4,7 @@
 
 using game::Beam;
 static int break_duration = config::beam_break_duration;
-using config::beam_motion_delay;
+static int motion_delay = config::beam_motion_delay;
 
 static Point validate_direction(Point _direction);
 
@@ -38,14 +38,18 @@ static Point validate_direction(Point _direction)
 
 void Beam::find_targets()
 {
-    tiles.push_back(pos);
-    tile_progress.push_back(-1);
+    if(!is_tile_in_use(pos)) {
+        tiles.push_back(pos);
+        tile_progress.push_back(0);
+    }
 
     int i = 1;
     Point next = pos + direction;
     while(get_tile(next)) {
-        tiles.push_back(next);
-        tile_progress.push_back(-beam_motion_delay * i);
+        if(!is_tile_in_use(next, CHK_IGNORE_LOCKED)) {
+            tiles.push_back(next);
+            tile_progress.push_back(-motion_delay * i);
+        }
         i++;
         next = next + direction;
     }
@@ -53,8 +57,10 @@ void Beam::find_targets()
     i = 1;
     next = pos - direction;
     while(get_tile(next)) {
-        tiles.push_back(next);
-        tile_progress.push_back(-beam_motion_delay * i);
+        if(!is_tile_in_use(next, CHK_IGNORE_LOCKED)) {
+            tiles.push_back(next);
+            tile_progress.push_back(-motion_delay * i);
+        }
         i++;
         next = next - direction;
     }
@@ -64,21 +70,22 @@ void Beam::find_targets()
 void Beam::tick(u32 time)
 {
     for(u32 i = 0; i < tiles.size(); ++i) {
+        auto const& tile = tiles[i];
         int& p = tile_progress[i];
         int p2 = p + static_cast<int>(time);
 
         // Skip tiles that are busy
-        if(p < 0 && p2 > 0)
-        if(is_tile_in_use(tiles[i])) {
+        if(p < 0 && p2 >= 0)
+        if(is_tile_in_use(tile, CHK_IGNORE_LOCKED)) {
             p += time + break_duration;
             continue;
         }
 
         // Remove tiles that finished their animation
         if(p < break_duration && p2 >= break_duration)
-                remove_tile(tiles[i]);
+            remove_tile(tiles[i]);
 
-        p = p + time;
+        p = p2;
     }
 }
 
