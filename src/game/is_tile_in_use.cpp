@@ -8,23 +8,23 @@
 
 bool game::is_tile_in_use(Point pos, u32 ignore)
 {
-    if(!(ignore && CHK_IGNORE_MOVING))
+    if(!(ignore & CHK_IGNORE_MOVING))
         if(is_tile_moving(pos))
             return true;
 
-    if(!(ignore && CHK_IGNORE_IN_LINE))
+    if(!(ignore & CHK_IGNORE_IN_LINE))
         if(is_tile_in_line(pos))
             return true;
 
-    if(!(ignore && CHK_IGNORE_EMPTY))
+    if(!(ignore & CHK_IGNORE_EMPTY))
         if(is_tile_empty(pos))
             return true;
 
-    if(!(ignore && CHK_IGNORE_FALLING))
+    if(!(ignore & CHK_IGNORE_FALLING))
         if(is_tile_falling(pos))
             return true;
 
-    if(!(ignore && CHK_IGNORE_LOCKED))
+    if(!(ignore & CHK_IGNORE_LOCKED))
         if(is_tile_locked(pos))
             return true;
 
