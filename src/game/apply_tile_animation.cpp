@@ -11,6 +11,9 @@ bool game::apply_tile_animation(Point pos,
     if(apply_tile_fall_anim(pos, output))
         return true;
 
+    if(apply_tile_skill_anim(pos, output))
+        return true;
+
     return false;
 }
 

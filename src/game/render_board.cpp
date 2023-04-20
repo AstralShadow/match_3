@@ -28,10 +28,10 @@ void game::render_board()
         render_tile(tile, output);
     }
 
-    render_board_overlay();
+    render_board_keyboard_overlay();
 }
 
-void game::render_board_overlay()
+void game::render_board_keyboard_overlay()
 {
     using config::kb_player_visibility_time;
     using config::kb_fade_blinks;

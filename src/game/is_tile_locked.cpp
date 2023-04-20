@@ -4,7 +4,7 @@
 
 bool game::is_tile_locked(Point pos)
 {
-    for(Skill* skill : active_skills)
+    for(auto& skill : active_skills)
         if(skill->is_locked(pos))
             return true;
 

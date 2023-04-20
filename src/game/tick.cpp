@@ -8,8 +8,7 @@
 
 void game::tick(u32 time, scene_uid)
 {
-    for(Skill* skill : active_skills)
-        skill->tick(time);
+    tick_skills(time);
 
     process_moves(time);
     process_line_animations(time);
