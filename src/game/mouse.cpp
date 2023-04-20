@@ -7,16 +7,12 @@
 #include "game/line_sequence.hpp"
 #include "config/controls.hpp"
 #include <SDL2/SDL_events.h>
-#include <iostream>
 
-using std::endl;
-using std::cout;
 using ButtonEv = SDL_MouseButtonEvent;
 using MotionEv = SDL_MouseMotionEvent;
 
 static Point mouse_focus {0, 0};
 static bool pending_move = false;
-static bool const print_log = false;
 
 Point game::get_board_pos(int x, int y)
 {
@@ -29,12 +25,8 @@ Point game::get_board_pos(int x, int y)
 
 void game::mousedown(ButtonEv& ev, scene_uid)
 {
-    Point pos = get_board_pos(ev.x, ev.y);
-    mouse_focus = pos;
+    mouse_focus = get_board_pos(ev.x, ev.y);
     pending_move = true;
-    if(print_log)
-        cout << "Pending move from "
-             << pos.x << "x" << pos.y << endl;
 }
 
 void game::mouseup(ButtonEv& ev, scene_uid)
@@ -42,21 +34,14 @@ void game::mouseup(ButtonEv& ev, scene_uid)
     if(!pending_move)
         return;
 
-    Point pos = get_board_pos(ev.x, ev.y);
-
     move_t move {
-        mouse_focus, pos,
+        mouse_focus, get_board_pos(ev.x, ev.y),
         &line_sequences[sequences_count - 1]
     };
     validate_move(move);
     equeue_move(move);
 
     pending_move = false;
-
-    pos = move.second;
-    if(print_log)
-        cout << "Move to " << pos.x
-             << "x" << pos.y << endl;
 }
 
 void game::mouse_motion(MotionEv& ev,
@@ -66,7 +51,7 @@ void game::mouse_motion(MotionEv& ev,
         return;
 
     Point pos = get_board_pos(ev.x, ev.y);
-    if(pos.x != mouse_focus.x || pos.y != mouse_focus.y) {
+    if(pos != mouse_focus) {
         move_t move = {
             mouse_focus, pos,
             &line_sequences[sequences_count - 1]
@@ -75,10 +60,5 @@ void game::mouse_motion(MotionEv& ev,
         equeue_move(move);
 
         pending_move = false;
-
-        pos = move.second;
-        if(print_log)
-            cout << "Move to " << pos.x
-                 << "x" << pos.y << endl;
     }
 }

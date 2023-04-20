@@ -6,10 +6,6 @@
 #include "utils/point.hpp"
 #include "game/board.hpp"
 #include <SDL2/SDL_events.h>
-#include <iostream>
-
-using std::cout;
-using std::endl;
 
 using config::keys_action;
 using config::keys_left;
@@ -40,8 +36,6 @@ void when_key(u8 scancode, void (*callback)(int))
 
 namespace game
 {
-    static const bool print_log = false;
-
     KBPlayer kb_players[config::max_kb_players];
 
     static void kb_move_down(int player);
@@ -104,10 +98,6 @@ void game::kb_move_left(int _player)
         else if(keys[keys_down[_player]])
             kb_move_by(_player, -1, 1);
     }
-    
-    if(print_log)
-        cout << "keyboard[" << _player << "]: left"
-             << endl;
 }
 
 void game::kb_move_right(int _player)
@@ -122,10 +112,6 @@ void game::kb_move_right(int _player)
         else if(keys[keys_down[_player]])
             kb_move_by(_player, 1, 1);
     }
-    
-    if(print_log)
-        cout << "keyboard[" << _player << "]: right"
-             << endl;
 }
 
 void game::kb_move_up(int _player)
@@ -140,10 +126,6 @@ void game::kb_move_up(int _player)
         else if(keys[keys_right[_player]])
             kb_move_by(_player, 1, -1);
     }
-    
-    if(print_log)
-        cout << "keyboard[" << _player << "]: up"
-             << endl;
 }
 
 void game::kb_move_down(int _player)
@@ -158,10 +140,6 @@ void game::kb_move_down(int _player)
         else if(keys[keys_right[_player]])
             kb_move_by(_player, 1, 1);
     }
-
-    if(print_log)
-        cout << "keyboard[" << _player << "]: down"
-             << endl;
 }
 
 
