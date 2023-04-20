@@ -14,7 +14,16 @@ namespace game
     bool can_create_tile();
     Tile create_tile();
 
-    bool is_tile_in_use(Point);
+
+    /* Tile check ignore flags for is_tile_in_use */
+    const u32 CHK_IGNORE_MOVING = 1;
+    const u32 CHK_IGNORE_IN_LINE = 2;
+    const u32 CHK_IGNORE_EMPTY = 4;
+    const u32 CHK_IGNORE_FALLING = 8;
+    const u32 CHK_IGNORE_LOCKED = 16;
+
+    bool is_tile_in_use(Point, u32 ignore = 0);
+
 
     bool are_similar(Tile*, Tile*);
     bool is_tile_empty(Tile*);

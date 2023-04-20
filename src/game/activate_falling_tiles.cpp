@@ -26,7 +26,9 @@ void game::activate_falling_tiles()
             continue;
 
         Point pos {x, y};
-        if(!is_tile_empty(pos) || is_tile_falling(pos))
+        if(!is_tile_empty(pos))
+            continue;
+        if(is_tile_in_use(pos, CHK_IGNORE_EMPTY))
             continue;
 
         auto path = find_filling_path(pos, diagonal);
