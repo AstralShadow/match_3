@@ -34,7 +34,13 @@ int config::kb_player_visibility_time = 15000;
 int config::kb_diagonal_rotation_time = 150;
 
 
-#include "graphics.hpp"
+#include "config/graphics.hpp"
 
 bool config::display_version_tag = true;
+
+
+#include "config/skills.hpp"
+
+u32 config::beam_break_duration = 350;
+u32 config::beam_motion_delay = 50;
 
