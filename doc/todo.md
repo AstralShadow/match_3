@@ -10,6 +10,8 @@
 
 - [x] Detect lines of 3+ tiles
     - [x] Store and apply them after finding all of them
+    - [ ] Wait for falling tiles that may become part of
+        a line before storing detected line.
 - [ ] Detect potential lines of 3+ tiles
 
 - [x] Mouse controls
