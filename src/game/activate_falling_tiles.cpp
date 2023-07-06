@@ -21,7 +21,7 @@ void game::activate_falling_tiles()
 {
     for(int y = board.height - 1; y >= 0; --y)
     for(int diagonal = 0; diagonal < 2; ++diagonal)
-    for(int x = 0; x < board.height; ++x) {
+    for(int x = 0; x < board.width; ++x) {
         if(diagonal && !config::permit_diagonal_falling)
             continue;
 
