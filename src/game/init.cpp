@@ -14,7 +14,7 @@ namespace game
 
 void game::init(int, char**, scene_uid)
 {
-    init_board(8, 8);
+    init_board(10, 8);
 
 }
 
